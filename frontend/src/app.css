@@ -1,11 +1,25 @@
 :root {
+/* Colors are declared here and used everywhere else. Do not  */
+  --blk: hsl(0, 0%, 0%);
+  --white: hsl(0, 0%, 100%);
+  --dark: hsl(0, 0%, 15%);
+  --dark2: hsl(0, 0%, 10%);
+  --dark3: hsl(0, 0%, 5%);
+  --dark4: hsl(0, 0%, 0%);
+  --alabaster: hsl(69, 21%, 94%);
+  --timerwolf: hsl(77, 9%, 84%);
+  --cambridgeBlue: hsl(122, 20%, 70%);
+  --ebony: hsl(86, 17%, 33%);
+  --davysGray: hwb(60 28% 71%);
+  --seaGreen: #5C946E;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--white);
+  background-color: var(--dark);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
