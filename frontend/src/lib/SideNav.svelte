@@ -19,10 +19,11 @@
 
 <style>
     nav {
-        min-width: 100vw;
         background-color: var(--dark4);
         display: flex;
         flex-direction: column;
+        grid-column: 1/3;
+        grid-row: 2/17;
     }
 
     .searchbar {

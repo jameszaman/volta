@@ -16,6 +16,8 @@
         background-color: var(--dark3);
         padding: 20px;
         border-bottom: 1px solid var(--dark);
+        grid-column: 1/13;
+        grid-row: 1/2;
     }
 
     input {
