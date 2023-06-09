@@ -1,11 +1,9 @@
 <script>
-
+    import Todo from "../components/Todo.svelte";
 </script>
 
 <div class="main-div">
-    <p>
-        This is where the base will be. Meaning the meat of the app.
-    </p>
+    <Todo />
 </div>
 
 
@@ -13,5 +11,7 @@
     .main-div {
         grid-row: 2/17;
         grid-column: 3/13;
+        display: grid;
+        justify-items: center;
     }
 </style>

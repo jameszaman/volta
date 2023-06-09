@@ -1,7 +1,7 @@
 <script>
-  import TopNav from "./lib/TopNav.svelte";
-  import SideNav from "./lib/SideNav.svelte";
-  import Base from "./lib/Base.svelte";
+  import TopNav from "./lib/layout/TopNav.svelte";
+  import SideNav from "./lib/layout/SideNav.svelte";
+  import Base from "./lib/layout/Base.svelte";
 </script>
 
 <main>

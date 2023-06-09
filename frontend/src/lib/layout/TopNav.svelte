@@ -20,10 +20,6 @@
         grid-row: 1/2;
     }
 
-    input {
-        padding: 0;
-    }
-
     .searchbar {
         padding: 0.2rem 0.3rem;
     }
