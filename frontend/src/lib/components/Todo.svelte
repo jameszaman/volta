@@ -9,11 +9,18 @@
         "Item #5",
         "Item #6",
     ]
+
+    let inputValue = "";
+
+    function addToDo() {
+        list = [...list, inputValue];
+    }
 </script>
 
+
 <div class="todo">
-    <form action="#">
-        <Input />
+    <form on:submit|preventDefault={addToDo} action="#">
+        <Input bind:value={inputValue} placeholder="New Todo"/>
         <Button> Submit </Button>
     </form>
 

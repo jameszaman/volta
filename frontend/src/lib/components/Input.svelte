@@ -1,8 +1,9 @@
 <script>
     export let placeholder="";
+    export let value="";
 </script>
 
-<input type="text" placeholder="{placeholder}">
+<input type="text" {placeholder} bind:value={value}>
 
 <style>
     input {
