@@ -13,7 +13,10 @@
     let inputValue = "";
 
     function addToDo() {
-        list = [...list, inputValue];
+        console.log(inputValue);
+        if(inputValue) {
+            list = [...list, inputValue];
+        }
     }
 </script>
 
@@ -35,6 +38,7 @@
 <style>
     form {
         display: flex;
+        gap: 1rem;
     }
 
     .todo {

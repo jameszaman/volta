@@ -7,6 +7,7 @@
 <main>
   <TopNav />
   <SideNav />
+  <!-- <SideNav /> -->
   <Base />
 </main>
 
@@ -14,7 +15,7 @@
   main {
     min-height: 100vh;
     display: grid;
-    grid-template-rows: repeat(16, 1fr);
     grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 6rem auto;
   }
 </style>
