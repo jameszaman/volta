@@ -1,7 +1,14 @@
+"""
+Copyright (c) 2023 James Hedayet Zaman
+All rights reserved.
+This code is the intellectual property of James Hedayet Zaman.
+Unauthorized use, reproduction, or distribution is strictly prohibited.
+For inquiries, please contact james.hedayet@gmail.com.
+"""
 from pymongo import MongoClient, errors
-from config import MONGO_URI, MONGO_DB_NAME
+from backend.config import MONGO_DATABASE_URI, MONGO_DB_NAME
 
-client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+client = MongoClient(MONGO_DATABASE_URI, serverSelectionTimeoutMS=5000)
 try:
     client.server_info()
     print('Connected to MongoDB server')

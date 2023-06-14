@@ -11,11 +11,11 @@ from fastapi.responses import RedirectResponse
 router = APIRouter()
 
 @router.get("/")
-async def redirect_to_docs():
+def redirect_to_docs():
     return RedirectResponse(url="/docs")
 
 @router.get("/health", response_description="Check the health of the app")
-async def health_check():
+def health_check():
     # Check whatever you need to check to verify the app is healthy here
     health_status = {"status": "ok"}
 
