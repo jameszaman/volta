@@ -17,6 +17,16 @@
 
     function addToDo() {
         if(inputValue) {
+            fetch(`${import.meta.env.VITE_API_URL}/todo/new`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "*/*",
+                },
+                body: JSON.stringify({
+                    "todo": inputValue,
+                })
+            })
             list = [...list, inputValue];
         }
     }
