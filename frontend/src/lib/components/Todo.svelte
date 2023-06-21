@@ -1,19 +1,21 @@
 <script>
+    // These are the components.
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
-    let list = [
-        "Item #1",
-        "Item #2",
-        "Item #3",
-        "Item #4",
-        "Item #5",
-        "Item #6",
-    ]
+
+    // We declare an empty array.
+    let list = []
+
+    // And fill the array with values from the database.
+    fetch(`${import.meta.env.VITE_API_URL}/todo/all`)
+    .then(res => res.json())
+    .then(data => {
+        list = [...data.map(todo => todo.todo)]
+    });
 
     let inputValue = "";
 
     function addToDo() {
-        console.log(inputValue);
         if(inputValue) {
             list = [...list, inputValue];
         }
