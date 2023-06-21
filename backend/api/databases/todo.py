@@ -16,7 +16,7 @@ class TodoDB:
     @classmethod
     def initialize(cls):
         cls.client = MongoClient(str(MONGO_DATABASE_URI))
-        cls.db = MongoClient(str(MONGO_DATABASE_NAME))
+        cls.db = cls.client[MONGO_DATABASE_NAME]
 
     @classmethod
     def add_todo(cls, todo: TodoSchema):
