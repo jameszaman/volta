@@ -1,3 +1,10 @@
+"""
+Copyright (c) 2023 James Hedayet Zaman
+All rights reserved.
+This code is the intellectual property of James Hedayet Zaman.
+Unauthorized use, reproduction, or distribution is strictly prohibited.
+For inquiries, please contact james.hedayet@gmail.com.
+"""
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 from config import API_PREFIX
