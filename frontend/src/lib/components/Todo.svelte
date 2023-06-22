@@ -10,7 +10,7 @@
     fetch(`${import.meta.env.VITE_API_URL}/todo/all`)
     .then(res => res.json())
     .then(data => {
-        list = [...data.map(todo => todo.todo)]
+        list = [...data.map(todo => ({todo: todo.todo, id: todo._id}))]
     });
 
     let inputValue = "";
@@ -27,7 +27,10 @@
                     "todo": inputValue,
                 })
             })
-            list = [...list, inputValue];
+            .then(res => res.json())
+            .then(todo_id => {
+                list = [...list, {"todo": inputValue, "id": todo_id}];
+            })
         }
     }
 </script>
@@ -41,7 +44,7 @@
 
     <ul>
         {#each list as listItem}
-            <li>{listItem}</li>
+            <li>{listItem.todo}</li>
         {/each}
     </ul>
 </div>
