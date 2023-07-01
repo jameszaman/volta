@@ -1,3 +1,10 @@
+"""
+Copyright (c) 2023 James Hedayet Zaman
+All rights reserved.
+This code is the intellectual property of James Hedayet Zaman.
+Unauthorized use, reproduction, or distribution is strictly prohibited.
+For inquiries, please contact james.hedayet@gmail.com.
+"""
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 from config import API_PREFIX
@@ -16,3 +23,8 @@ def create_todo(todo: TodoSchema = Body(...)):
 def get_all_todo():
     todo_list = TodoDB.get_all_todo()
     return todo_list
+
+@router.delete('/delete', response_description='Delete a single Todo')
+def delete_todo(id: str):
+    response = TodoDB.delete_todo(id)
+    return response
