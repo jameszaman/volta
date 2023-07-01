@@ -8,6 +8,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 from pymongo import MongoClient
 from config import MONGO_DATABASE_URI, MONGO_DATABASE_NAME
 from ..models.todo import TodoSchema
+from bson import ObjectId
 
 class TodoDB:
     client = None
@@ -34,4 +35,14 @@ class TodoDB:
             todo_list.append(todo)
             # todo_list[index]["_id"] = str(todo_list[index]["_id"])
         return todo_list
+    
+    @classmethod
+    def delete_todo(cls, id: int):
+        collection = cls.db['todo']
+        response = collection.delete_one({'_id': ObjectId(id)})
+        if response.deleted_count == 1:
+            return {"message": "Todo deleted successfully"}
+        else:
+            return {"message": "Unable to delete Todo"}
+
 

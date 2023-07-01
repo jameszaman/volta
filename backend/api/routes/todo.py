@@ -23,3 +23,8 @@ def create_todo(todo: TodoSchema = Body(...)):
 def get_all_todo():
     todo_list = TodoDB.get_all_todo()
     return todo_list
+
+@router.delete('/delete', response_description='Delete a single Todo')
+def delete_todo(id: str):
+    response = TodoDB.delete_todo(id)
+    return response
