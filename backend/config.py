@@ -8,6 +8,11 @@ For inquiries, please contact james.hedayet@gmail.com.
 from dotenv import load_dotenv
 from os import environ
 from pathlib import Path
+from dns import resolver
+
+# This code is in case the DNS is not set properly by the user.
+resolver.default_resolver=resolver.Resolver(configure=False)
+resolver.default_resolver.nameservers=['8.8.8.8']
 
 # Load environment variables from .env file
 env_path = Path('.') / '.env'

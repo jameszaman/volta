@@ -8,12 +8,16 @@ For inquiries, please contact james.hedayet@gmail.com.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.routes import base, todo
+from api.routes import base, todo, project
+
+# Importing all the databases to initialize them.
 from api.databases.todo import TodoDB
+from api.databases.project import ProjectDB
 
 app = FastAPI()
 
 TodoDB.initialize()
+ProjectDB.initialize()
 
 # CORS middleware
 app.add_middleware(
@@ -26,6 +30,7 @@ app.add_middleware(
 # include routes
 app.include_router(base.router)
 app.include_router(todo.router)
+app.include_router(project.router)
 
 
 if __name__ == "__main__":
