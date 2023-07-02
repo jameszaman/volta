@@ -1,18 +1,25 @@
 <script>
     import Input from "../components/Input.svelte";
 
-    let projectNames = ["Project 01", "Project 02", "Project 03", "Project 04"]
+    let projectNames = []
+
+    // And fill the array with values from the database.
+    fetch(`${import.meta.env.VITE_API_URL}/project/all`)
+    .then(res => res.json())
+    .then(data => {
+        projectNames = [...data.map(project => ({name: project.name, id: project._id}))]
+    });
 </script>
 
 <nav>
     <div>
-        Sidenav
+        Project List
     </div>
     <Input className="searchbar" placeholder="Search For A Project" />
     <ul>
         {#each projectNames as projectName}
             <li class="project-name">
-                <a href="#{projectName}">{projectName}</a>
+                <a href="#{projectName.name}">{projectName.name}</a>
             </li>
         {/each}
         
@@ -24,7 +31,7 @@
         background-color: var(--dark4);
         display: flex;
         flex-direction: column;
-        grid-column: 1/3;
+        grid-column: 1/4;
     }
 
     .project-name {

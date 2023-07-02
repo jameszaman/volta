@@ -9,7 +9,7 @@
 
 <style>
     .main-div {
-        grid-column: 3/13;
+        grid-column: 4/13;
         display: grid;
         justify-items: center;
     }
