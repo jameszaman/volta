@@ -10,11 +10,34 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // Props
     export let className="";
+
+    let inputValue = "";
+
+    function addProject() {
+        if(inputValue) {
+            // Make a POST request with necessary parameters to create a new todo.
+            fetch(`${import.meta.env.VITE_API_URL}/project/new`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "*/*",
+                },
+                body: JSON.stringify({
+                    "name": inputValue,
+                })
+            })
+            .then(res => res.json())
+            .then(todo_id => {
+                // Also add the todo to the frontend.
+                // list = [...list, {"todo": inputValue, "id": todo_id}];
+            })
+        }
+    }
 </script>
 
 <div class={className}>
-    <form action="">
-        <Input className="searchbar margin0" placeholder="Create a new Project" />
+    <form on:submit|preventDefault={addProject} action="#">
+        <Input className="searchbar margin0" bind:value={inputValue} placeholder="Create a new Project" />
     </form>
 </div>
 
