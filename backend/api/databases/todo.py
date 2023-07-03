@@ -9,7 +9,7 @@ from pymongo import MongoClient
 from config import MONGO_DATABASE_URI, MONGO_DATABASE_NAME
 from ..models.todo import TodoSchema
 from bson import ObjectId
-
+from fastapi import HTTPException
 class TodoDB:
     client = None
     db = None
@@ -20,10 +20,25 @@ class TodoDB:
         cls.db = cls.client[MONGO_DATABASE_NAME]
 
     @classmethod
-    def add_todo(cls, todo: TodoSchema):
-        collection = cls.db['todo']
-        new_todo = collection.insert_one(todo)
-        return str(new_todo.inserted_id)
+    def add_todo(cls, project_id: str, todo: TodoSchema):
+        collection = cls.db['project']
+        # First we get the project where we will insert the new todo.
+        project = collection.find_one({"_id": ObjectId(project_id)})
+
+        # Must make sure that we found a project.
+        if project:
+            # Add the todo to the project.
+            project["todos"].append(todo)
+
+            # Update the project database.
+            project["_id"] = str(project["_id"])
+            collection.update_one(
+                {"_id": ObjectId(project_id)},
+                {"$set": {"todos": project["todos"]}}
+            )
+            return project
+        else:
+            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
 
     @classmethod
     def get_all_todo(cls):
