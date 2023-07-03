@@ -7,6 +7,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 -->
 <script>
     import Input from "../components/Input.svelte";
+    import ListItemWithDelete from "./ListItemWithDelete.svelte";
 
     // Props
     export let className="";
@@ -19,31 +20,37 @@ For inquiries, please contact james.hedayet@gmail.com.
     .then(data => {
         projectNames = [...data.map(project => ({name: project.name, id: project._id}))]
     });
+
+    // Functions for this component.
+    function deleteProject(id) {
+        // Make a DELETE request with necessary parameters to delete a todo.
+        fetch(`${import.meta.env.VITE_API_URL}/project/delete?id=${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            // Also remove the todo from the frontend.
+            projectNames = projectNames.filter(projectName => {
+                return projectName.id != id
+            })
+        })
+    }
 </script>
 
 <div class={className}>
     <Input className="searchbar margin0" placeholder="Search For A Project" />
     <ul>
         {#each projectNames as projectName}
-            <li class="project-name">
-                <a href="#{projectName.name}">{projectName.name}</a>
-            </li>
+            <ListItemWithDelete className="project-name" value={projectName.name} id={projectName.id} deleteFunction={deleteProject}/>
         {/each}
     </ul>
 </div>
 
 
 <style>
-    a {
-        text-decoration: none;
-        color: var(--white);
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    .project-name {
-        padding: 0.5rem;
-    }
+    
 </style>
