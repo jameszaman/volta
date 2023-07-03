@@ -3,7 +3,10 @@
     import ProjectList from "../components/ProjectList.svelte";
     import CreateProject from "../components/CreateProject.svelte";
 
-    
+    // Declarations
+    let projectNames = []
+
+    // Variables for toggling between search and create project.
     let sideNavButtonIcon = 'mdi:create-new-folder-outline'
     let projectListIsHidden = ''
     let createProjectIsHidden = 'hidden'
@@ -29,8 +32,8 @@
             <Icon icon={sideNavButtonIcon}/>
         </button>
     </div>
-    <ProjectList className={projectListIsHidden}/>
-    <CreateProject className={createProjectIsHidden}/>
+    <ProjectList className={projectListIsHidden} bind:projectNames={projectNames}/>
+    <CreateProject className={createProjectIsHidden} bind:projectNames={projectNames}/>
 </nav>
 
 <style>

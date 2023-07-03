@@ -10,9 +10,8 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // Props
     export let className="";
-
     // List of projects that will be shown.
-    let projectNames = []
+    export let projectNames = [];
 
     // And fill the array with values from the database.
     fetch(`${import.meta.env.VITE_API_URL}/project/all`)

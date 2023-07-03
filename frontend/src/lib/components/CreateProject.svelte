@@ -10,6 +10,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // Props
     export let className="";
+    export let projectNames = [];
 
     let inputValue = "";
 
@@ -29,7 +30,7 @@ For inquiries, please contact james.hedayet@gmail.com.
             .then(res => res.json())
             .then(todo_id => {
                 // Also add the todo to the frontend.
-                // list = [...list, {"todo": inputValue, "id": todo_id}];
+                projectNames = [...projectNames, {"name": inputValue, "id": todo_id}];
             })
         }
     }
