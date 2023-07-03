@@ -1,4 +1,5 @@
 <script>
+    // Props
     export let placeholder="";
     export let value="";
     export let className="";
@@ -15,5 +16,9 @@
     .searchbar {
         padding: 0.2rem 0.3rem;
         margin: 0.5rem 1rem;
+    }
+
+    .margin0 {
+        margin: 0;
     }
 </style>
