@@ -10,6 +10,7 @@ from config import MONGO_DATABASE_URI, MONGO_DATABASE_NAME
 from ..models.todo import TodoSchema
 from bson import ObjectId
 from fastapi import HTTPException
+
 class TodoDB:
     client = None
     db = None
@@ -40,17 +41,30 @@ class TodoDB:
         else:
             raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
 
-    @classmethod
-    def get_all_todo(cls):
-        collection = cls.db['todo']
-        cursor = collection.find({}, {})
-        todo_list = []
-        for todo in cursor:
-            todo["_id"] = str(todo["_id"])
-            todo_list.append(todo)
-            # todo_list[index]["_id"] = str(todo_list[index]["_id"])
-        return todo_list
+    # This function was used when todos were not connected with any project.
+
+    # @classmethod
+    # def get_all_todo(cls):
+    #     collection = cls.db['todo']
+    #     cursor = collection.find({}, {})
+    #     todo_list = []
+    #     for todo in cursor:
+    #         todo["_id"] = str(todo["_id"])
+    #         todo_list.append(todo)
+    #         # todo_list[index]["_id"] = str(todo_list[index]["_id"])
+    #     return todo_list
     
+    @classmethod
+    def get_todo_by_project(cls, project_id: str):
+        collection = cls.db['project']
+        # First we get the project where we will insert the new todo.
+        project = collection.find_one({"_id": ObjectId(project_id)})
+
+        if project:
+            return project["todos"]
+        else:
+            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
+
     @classmethod
     def delete_todo(cls, id: int):
         collection = cls.db['todo']

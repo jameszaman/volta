@@ -2,13 +2,15 @@
   import TopNav from "./lib/layout/TopNav.svelte";
   import SideNav from "./lib/layout/SideNav.svelte";
   import Base from "./lib/layout/Base.svelte";
+  import { setContext } from "svelte";
+
+  let current_project = 0
 </script>
 
 <main>
-  <TopNav />
-  <SideNav />
-  <!-- <SideNav /> -->
-  <Base />
+    <TopNav />
+    <SideNav />
+    <Base />
 </main>
 
 <style>

@@ -7,10 +7,14 @@ For inquiries, please contact james.hedayet@gmail.com.
 -->
 <script>
     import Todo from "../components/Todo.svelte";
+
+    export let current_project = 0
+
+    let todo_list = []
 </script>
 
 <div class="main-div">
-    <Todo />
+    <Todo bind:todoList={todo_list}/>
 </div>
 
 
