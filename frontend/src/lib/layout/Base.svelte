@@ -26,7 +26,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 </script>
 
 <div class="main-div">
-    <Todo bind:todoList={todo_list}/>
+    <Todo bind:todoList={todo_list} bind:current_project={current_project}/>
 </div>
 
 

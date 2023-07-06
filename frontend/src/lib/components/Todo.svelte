@@ -13,6 +13,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // props
     export let todoList = []
+    export let current_project = 0
 
     // This is for tracking the input of todo.
     let inputValue = "";
@@ -27,7 +28,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     function addToDo() {
         if(inputValue) {
             // Make a POST request with necessary parameters to create a new todo.
-            fetch(`${import.meta.env.VITE_API_URL}/todo/new`, {
+            fetch(`${import.meta.env.VITE_API_URL}/todo/new?project_id=${current_project}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
