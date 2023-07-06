@@ -8,9 +8,21 @@ For inquiries, please contact james.hedayet@gmail.com.
 <script>
     import Todo from "../components/Todo.svelte";
 
+    // props
     export let current_project = 0
 
+
     let todo_list = []
+
+    $: {
+        fetch(`${import.meta.env.VITE_API_URL}/todo/all?project_id=${current_project}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            todo_list = [...data.map(todo => ({todo: todo.todo, id: todo._id}))]
+            console.log
+        });
+    }
 </script>
 
 <div class="main-div">

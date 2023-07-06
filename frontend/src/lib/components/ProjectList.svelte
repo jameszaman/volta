@@ -11,6 +11,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // Props
     export let className="";
+    export let current_project = 0;
     // List of projects that will be shown.
     export let projectNames = [];
 
@@ -39,13 +40,18 @@ For inquiries, please contact james.hedayet@gmail.com.
             })
         })
     }
+
+    function changeProject(id) {
+        // Change the current project with the id of whichever project was clicked.
+        current_project = id;
+    }
 </script>
 
 <div class={className}>
     <Input className="searchbar margin0" placeholder="Search For A Project" />
     <ul>
         {#each projectNames as projectName}
-            <ListItemWithDelete className="project-name" value={projectName.name} id={projectName.id} deleteFunction={deleteProject}/>
+            <ListItemWithDelete click={() => {changeProject(projectName.id)}} className="project-name" value={projectName.name} id={projectName.id} deleteFunction={deleteProject}/>
         {/each}
     </ul>
 </div>

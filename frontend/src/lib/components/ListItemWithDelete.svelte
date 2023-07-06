@@ -9,18 +9,25 @@ For inquiries, please contact james.hedayet@gmail.com.
     import Icon from '@iconify/svelte'
 
     // Props
+    // Functions
     export let deleteFunction = (id) => {}
+    export let click = () => {}
+    // Variables
     export let value = ""
     export let id = ""
     export let className = ""
 </script>
 
-<li class={className + " list-item"}>
+<li 
+    class={className + " list-item"}
+    on:click={click}
+    on:keypress={click}
+>
     <span>{value}</span>
     <span
         class="list-item-delete"
         on:click={() => deleteFunction(id)}
-        on:keydown={(event) => {
+        on:keypress={(event) => {
             if(event.key === 'Enter') {
                 deleteFunction(id)
             }
