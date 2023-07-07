@@ -10,6 +10,9 @@ For inquiries, please contact james.hedayet@gmail.com.
     import ProjectList from "../components/ProjectList.svelte";
     import CreateProject from "../components/CreateProject.svelte";
 
+    // props
+    export let current_project = 0
+
     // Declarations
     let projectNames = []
 
@@ -39,7 +42,7 @@ For inquiries, please contact james.hedayet@gmail.com.
             <Icon icon={sideNavButtonIcon}/>
         </button>
     </div>
-    <ProjectList className={projectListIsHidden} bind:projectNames={projectNames}/>
+    <ProjectList className={projectListIsHidden} bind:projectNames={projectNames} bind:current_project={current_project}/>
     <CreateProject className={createProjectIsHidden} bind:projectNames={projectNames}/>
 </nav>
 

@@ -11,23 +11,24 @@ For inquiries, please contact james.hedayet@gmail.com.
     import Button from "./Button.svelte";
     import ListItemWithDelete from "./ListItemWithDelete.svelte";
 
+    // props
+    export let todoList = []
+    export let current_project = 0
+
     // This is for tracking the input of todo.
     let inputValue = "";
 
-    // We declare an empty array.
-    let list = []
-
-    // And fill the array with values from the database.
-    fetch(`${import.meta.env.VITE_API_URL}/todo/all`)
-    .then(res => res.json())
-    .then(data => {
-        list = [...data.map(todo => ({todo: todo.todo, id: todo._id}))]
-    });
+    // // And fill the array with values from the database.
+    // fetch(`${import.meta.env.VITE_API_URL}/todo/all`)
+    // .then(res => res.json())
+    // .then(data => {
+    //     todoList = [...data.map(todoList => ({todo: todoList.todo, id: todoList._id}))]
+    // });
 
     function addToDo() {
         if(inputValue) {
             // Make a POST request with necessary parameters to create a new todo.
-            fetch(`${import.meta.env.VITE_API_URL}/todo/new`, {
+            fetch(`${import.meta.env.VITE_API_URL}/todo/new?project_id=${current_project}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -40,7 +41,7 @@ For inquiries, please contact james.hedayet@gmail.com.
             .then(res => res.json())
             .then(todo_id => {
                 // Also add the todo to the frontend.
-                list = [...list, {"todo": inputValue, "id": todo_id}];
+                todoList = [...todoList, {"todo": inputValue, "id": todo_id}];
             })
         }
     }
@@ -56,7 +57,7 @@ For inquiries, please contact james.hedayet@gmail.com.
         .then(res => res.json())
         .then(data => {
             // Also remove the todo from the frontend.
-            list = list.filter(todo => {
+            todoList = todoList.filter(todo => {
                 return todo.id != id
             })
         })
@@ -71,7 +72,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     </form>
 
     <ul>
-        {#each list as listItem}
+        {#each todoList as listItem}
             <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem.id}/>
         {/each}
     </ul>
