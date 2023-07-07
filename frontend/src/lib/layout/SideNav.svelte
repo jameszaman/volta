@@ -1,22 +1,49 @@
+<!--
+Copyright (c) 2023 James Hedayet Zaman
+All rights reserved.
+This code is the intellectual property of James Hedayet Zaman.
+Unauthorized use, reproduction, or distribution is strictly prohibited.
+For inquiries, please contact james.hedayet@gmail.com.
+-->
 <script>
-    import Input from "../components/Input.svelte";
+    import Icon from "@iconify/svelte";
+    import ProjectList from "../components/ProjectList.svelte";
+    import CreateProject from "../components/CreateProject.svelte";
 
-    let projectNames = ["Project 01", "Project 02", "Project 03", "Project 04"]
+    // props
+    export let current_project = 0
+
+    // Declarations
+    let projectNames = []
+
+    // Variables for toggling between search and create project.
+    let sideNavButtonIcon = 'mdi:create-new-folder-outline'
+    let projectListIsHidden = ''
+    let createProjectIsHidden = 'hidden'
+
+    function toggleButton() {
+        if(sideNavButtonIcon == 'mdi:create-new-folder-outline') {
+            sideNavButtonIcon = 'gala:search'
+            projectListIsHidden = 'hidden'
+            createProjectIsHidden = ''
+        }
+        else {
+            sideNavButtonIcon = 'mdi:create-new-folder-outline'
+            projectListIsHidden = ''
+            createProjectIsHidden = 'hidden'
+        }
+    }
 </script>
 
 <nav>
-    <div>
-        Sidenav
+    <div class="nav-top">
+        <span>Project List</span>
+        <button on:click={toggleButton}>
+            <Icon icon={sideNavButtonIcon}/>
+        </button>
     </div>
-    <Input className="searchbar" placeholder="Search For A Project" />
-    <ul>
-        {#each projectNames as projectName}
-            <li class="project-name">
-                <a href="#{projectName}">{projectName}</a>
-            </li>
-        {/each}
-        
-    </ul>
+    <ProjectList className={projectListIsHidden} bind:projectNames={projectNames} bind:current_project={current_project}/>
+    <CreateProject className={createProjectIsHidden} bind:projectNames={projectNames}/>
 </nav>
 
 <style>
@@ -24,20 +51,21 @@
         background-color: var(--dark4);
         display: flex;
         flex-direction: column;
-        grid-column: 1/3;
+        grid-column: 1/4;
     }
 
-    .project-name {
-        padding: 0.5rem;
+    .nav-top {
+        display: flex;
+        justify-content: space-around;
+        /* align-items: center; */
+        font-size: 1.5rem;
     }
-
-    a {
-        text-decoration: none;
-        color: var(--white);
-    }
-
-    a:hover {
-        text-decoration: underline;
+    .nav-top button {
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+        color: white;
+        font-size: 2rem;
     }
 
     @media (max-width: 768px) {

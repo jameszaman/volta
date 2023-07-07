@@ -14,14 +14,14 @@ from ..databases.todo import TodoDB
 router = APIRouter(prefix=f'{API_PREFIX}/todo')
 
 @router.post('/new', response_description="Add a new Todo")
-def create_todo(todo: TodoSchema = Body(...)):
+def create_todo(project_id: str, todo: TodoSchema = Body(...)):
     todo = jsonable_encoder(todo)
-    new_todo = TodoDB.add_todo(todo)
+    new_todo = TodoDB.add_todo(project_id, todo)
     return new_todo
 
 @router.get('/all', response_description="Get all the Todo")
-def get_all_todo():
-    todo_list = TodoDB.get_all_todo()
+def get_all_todo(project_id: str):
+    todo_list = TodoDB.get_todo_by_project(project_id)
     return todo_list
 
 @router.delete('/delete', response_description='Delete a single Todo')
