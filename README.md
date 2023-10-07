@@ -66,5 +66,5 @@ npm run dev
 #### Backend
 In the `backend` folder:
 ```bash
-python main.py
+uvicorn server.main:app --reload
 ```
