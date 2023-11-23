@@ -11,9 +11,9 @@ For inquiries, please contact james.hedayet@gmail.com.
 
 <nav class="flex justify-between items-center p-5 border-b border-black col-span-12 bg-zinc-900">
     <div>
-        This is the top Side Bar.
+        Volta
     </div>
-    <input type="text" class=" px-3 py-2 w-3/4 text-xl" placeholder="For Searching In The Whole Project">
+    <input type="text" class=" px-3 py-2 w-3/4 text-xl rounded outline-none" placeholder="For Searching In The Whole Project">
     <div>
         <!-- Will hold dropdown in the future if needed. -->
     </div>

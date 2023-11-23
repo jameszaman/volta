@@ -18,13 +18,6 @@ For inquiries, please contact james.hedayet@gmail.com.
     // This is for tracking the input of todo.
     let inputValue = "";
 
-    // // And fill the array with values from the database.
-    // fetch(`${import.meta.env.VITE_API_URL}/todo/all`)
-    // .then(res => res.json())
-    // .then(data => {
-    //     todoList = [...data.map(todoList => ({todo: todoList.todo, id: todoList._id}))]
-    // });
-
     function addToDo() {
         if(inputValue) {
             // Make a POST request with necessary parameters to create a new todo.
@@ -65,13 +58,13 @@ For inquiries, please contact james.hedayet@gmail.com.
 </script>
 
 
-<div class="border border-white p-4 m-4 rounded">
-    <form on:submit|preventDefault={addToDo} action="#" class="flex gap-4">
-        <Input bind:value={inputValue} placeholder="New Todo"/>
-        <Button> Submit </Button>
+<div class="border border-gray-400 p-4 m-4 rounded min-h-[50%] w-[90%] md:max-w-3xl flex flex-col items-center">
+    <form on:submit|preventDefault={addToDo} action="#" class="flex w-full px-4">
+        <Input bind:value={inputValue} placeholder="New Todo" className="rounded rounded-r-none outline-none w-full"/>
+        <Button className=" text-sm py-0 rounded-l-none"> Submit </Button>
     </form>
 
-    <ul>
+    <ul class="w-full px-4 py-2">
         {#each todoList as listItem}
             <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem.id}/>
         {/each}

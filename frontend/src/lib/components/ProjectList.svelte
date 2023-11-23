@@ -47,8 +47,8 @@ For inquiries, please contact james.hedayet@gmail.com.
     }
 </script>
 
-<div class={className}>
-    <Input placeholder="Search For A Project" />
+<div class={className + " py-2"}>
+    <Input placeholder="Search For A Project" className="w-full rounded outline-none" />
     <ul>
         {#each projectNames as projectName}
             <ListItemWithDelete click={() => {changeProject(projectName.id)}} className="hover:underline rounded-lg cursor-pointer" value={projectName.name} id={projectName.id} deleteFunction={deleteProject}/>
