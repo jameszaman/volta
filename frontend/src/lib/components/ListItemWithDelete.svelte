@@ -23,7 +23,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     on:click={click}
     on:keypress={click}
 >
-    <span>{value}</span>
+    <span class=" break-all">{value}</span>
     <span
         class="text-red-500 group-hover:opacity-100 opacity-0 cursor-pointer absolute right-0 text-2xl"
         on:click={() => deleteFunction(id)}

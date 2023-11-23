@@ -6,7 +6,7 @@ Unauthorized use, reproduction, or distribution is strictly prohibited.
 For inquiries, please contact james.hedayet@gmail.com.
 -->
 <script>
-    import Todo from "../components/Todo.svelte";
+    import Todo from "../components/TodoList.svelte";
 
     // props
     export let current_project = 0;

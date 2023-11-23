@@ -36,9 +36,9 @@ For inquiries, please contact james.hedayet@gmail.com.
     }
 </script>
 
-<div class={className}>
+<div class={className + " py-2"}>
     <form on:submit|preventDefault={addProject} action="#">
-        <Input bind:value={inputValue} placeholder="Create a new Project" />
+        <Input bind:value={inputValue} placeholder="Create a new Project" className="w-full rounded outline-none" />
     </form>
 </div>
 
