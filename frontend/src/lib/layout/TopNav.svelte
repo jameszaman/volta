@@ -9,31 +9,12 @@ For inquiries, please contact james.hedayet@gmail.com.
   
 </script>
 
-<nav>
+<nav class="flex justify-between items-center p-5 border-b border-black col-span-12 bg-zinc-900">
     <div>
         This is the top Side Bar.
     </div>
-    <input type="text" class="searchbar" placeholder="For Searching In The Whole Project">
+    <input type="text" class=" px-3 py-2 w-3/4 text-xl" placeholder="For Searching In The Whole Project">
     <div>
         <!-- Will hold dropdown in the future if needed. -->
     </div>
 </nav>
-
-
-<style>
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: var(--dark3);
-        padding: 20px;
-        border-bottom: 1px solid var(--dark);
-        grid-column: 1/13;
-    }
-
-    .searchbar {
-        padding: 0.5rem 0.75rem;
-        width: 80%;
-        font-size: 1.5rem;
-    }
-</style>

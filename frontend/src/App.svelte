@@ -9,17 +9,8 @@
 
 <TailwindCss />
 
-<main>
+<main class="min-h-screen grid grid-cols-12 grid-rows-[6rem_auto]">
     <TopNav />
     <SideNav bind:current_project />
     <Base bind:current_project />
 </main>
-
-<style>
-  main {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: 6rem auto;
-  }
-</style>

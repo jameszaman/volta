@@ -35,42 +35,13 @@ For inquiries, please contact james.hedayet@gmail.com.
     }
 </script>
 
-<nav>
-    <div class="nav-top">
+<nav class="bg-zinc-900 flex flex-col  md:col-span-3 col-span-12 md:max-w-xs">
+    <div class="mx-4 flex justify-between text-2xl">
         <span>Project List</span>
-        <button on:click={toggleButton}>
+        <button on:click={toggleButton} class="bg-transparent border-0 cursor-pointer text-white text-2xl">
             <Icon icon={sideNavButtonIcon}/>
         </button>
     </div>
     <ProjectList className={projectListIsHidden} bind:projectNames={projectNames} bind:current_project={current_project}/>
     <CreateProject className={createProjectIsHidden} bind:projectNames={projectNames}/>
 </nav>
-
-<style>
-    nav {
-        background-color: var(--dark4);
-        display: flex;
-        flex-direction: column;
-        grid-column: 1/4;
-    }
-
-    .nav-top {
-        display: flex;
-        justify-content: space-around;
-        /* align-items: center; */
-        font-size: 1.5rem;
-    }
-    .nav-top button {
-        background-color: transparent;
-        border: 0;
-        cursor: pointer;
-        color: white;
-        font-size: 2rem;
-    }
-
-    @media (max-width: 768px) {
-        nav {
-            grid-column: 1/13;
-        }
-    }
-</style>

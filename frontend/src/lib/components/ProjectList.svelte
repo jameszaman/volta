@@ -48,15 +48,10 @@ For inquiries, please contact james.hedayet@gmail.com.
 </script>
 
 <div class={className}>
-    <Input className="searchbar margin0" placeholder="Search For A Project" />
+    <Input placeholder="Search For A Project" />
     <ul>
         {#each projectNames as projectName}
-            <ListItemWithDelete click={() => {changeProject(projectName.id)}} className="project-name" value={projectName.name} id={projectName.id} deleteFunction={deleteProject}/>
+            <ListItemWithDelete click={() => {changeProject(projectName.id)}} className="hover:underline rounded-lg cursor-pointer" value={projectName.name} id={projectName.id} deleteFunction={deleteProject}/>
         {/each}
     </ul>
 </div>
-
-
-<style>
-    
-</style>

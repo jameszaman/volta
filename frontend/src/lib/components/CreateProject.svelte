@@ -38,10 +38,9 @@ For inquiries, please contact james.hedayet@gmail.com.
 
 <div class={className}>
     <form on:submit|preventDefault={addProject} action="#">
-        <Input className="searchbar margin0" bind:value={inputValue} placeholder="Create a new Project" />
+        <Input bind:value={inputValue} placeholder="Create a new Project" />
     </form>
 </div>
-
 
 <style>
     * {

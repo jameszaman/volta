@@ -65,8 +65,8 @@ For inquiries, please contact james.hedayet@gmail.com.
 </script>
 
 
-<div class="todo-container">
-    <form on:submit|preventDefault={addToDo} action="#">
+<div class="border border-white p-4 m-4 rounded">
+    <form on:submit|preventDefault={addToDo} action="#" class="flex gap-4">
         <Input bind:value={inputValue} placeholder="New Todo"/>
         <Button> Submit </Button>
     </form>
@@ -77,18 +77,3 @@ For inquiries, please contact james.hedayet@gmail.com.
         {/each}
     </ul>
 </div>
-
-
-<style>
-    form {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .todo-container {
-        border: 1px solid var(--white);
-        padding: 1rem;
-        margin: 1rem;
-        border-radius: 0.3rem;
-    }
-</style>

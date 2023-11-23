@@ -25,22 +25,6 @@ For inquiries, please contact james.hedayet@gmail.com.
     }
 </script>
 
-<div class="main-div">
+<div class="grid justify-items-center col-span-12 md:col-span-9">
     <Todo bind:todoList={todo_list} bind:current_project={current_project}/>
 </div>
-
-
-<style>
-    .main-div {
-        grid-column: 4/13;
-        display: grid;
-        justify-items: center;
-    }
-
-    
-    @media (max-width: 768px) {
-        .main-div {
-            grid-column: 1/13;
-        }
-    }
-</style>
