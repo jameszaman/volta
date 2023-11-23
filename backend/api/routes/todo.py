@@ -25,6 +25,6 @@ def get_all_todo(project_id: str):
     return todo_list
 
 @router.delete('/delete', response_description='Delete a single Todo')
-def delete_todo(id: str):
-    response = TodoDB.delete_todo(id)
+def delete_todo(id: str, project_id: str):
+    response = TodoDB.delete_todo(id, project_id)
     return response

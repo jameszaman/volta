@@ -28,31 +28,18 @@ class TodoDB:
 
         # Must make sure that we found a project.
         if project:
+            todo["_id"] = str(ObjectId())
             # Add the todo to the project.
             project["todos"].append(todo)
 
             # Update the project database.
-            project["_id"] = str(project["_id"])
             collection.update_one(
                 {"_id": ObjectId(project_id)},
                 {"$set": {"todos": project["todos"]}}
             )
-            return project
+            return project['todos'][-1]
         else:
             raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
-
-    # This function was used when todos were not connected with any project.
-
-    # @classmethod
-    # def get_all_todo(cls):
-    #     collection = cls.db['todo']
-    #     cursor = collection.find({}, {})
-    #     todo_list = []
-    #     for todo in cursor:
-    #         todo["_id"] = str(todo["_id"])
-    #         todo_list.append(todo)
-    #         # todo_list[index]["_id"] = str(todo_list[index]["_id"])
-    #     return todo_list
     
     @classmethod
     def get_todo_by_project(cls, project_id: str):
@@ -66,12 +53,22 @@ class TodoDB:
             raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
 
     @classmethod
-    def delete_todo(cls, id: int):
-        collection = cls.db['todo']
-        response = collection.delete_one({'_id': ObjectId(id)})
-        if response.deleted_count == 1:
-            return {"message": "Todo deleted successfully"}
+    def delete_todo(cls, id: str, project_id: str):
+        collection = cls.db['project']
+        # First we get the project where we will insert the new todo.
+        project = collection.find_one({"_id": ObjectId(project_id)})
+        if project:
+            # We found the project, now we must find the todo.
+            for todo in project["todos"]:
+                if todo["_id"] == id:
+                    # We found the todo, now we must delete it.
+                    project["todos"].remove(todo)
+                    # Update the project database.
+                    collection.update_one(
+                        {"_id": ObjectId(project_id)},
+                        {"$set": {"todos": project["todos"]}}
+                    )
+                    return {"message": "Todo deleted successfully"}
+            raise HTTPException(status_code=404, detail="Unable to delete resource. Resource not found.")
         else:
-            return {"message": "Unable to delete Todo"}
-
-
+            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")

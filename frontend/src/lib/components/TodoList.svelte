@@ -32,15 +32,15 @@ For inquiries, please contact james.hedayet@gmail.com.
                 })
             })
             .then(res => res.json())
-            .then(todo_id => {
+            .then(new_todo => {
                 // Also add the todo to the frontend.
-                todoList = [...todoList, {"todo": inputValue, "id": todo_id}];
+                todoList = [...todoList, {"todo": new_todo["todo"], "id": new_todo["_id"]}];
             })
         }
     }
     function deleteTodo(id) {
         // Make a DELETE request with necessary parameters to delete a todo.
-        fetch(`${import.meta.env.VITE_API_URL}/todo/delete?id=${id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/todo/delete?id=${id}&project_id=${current_project}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
