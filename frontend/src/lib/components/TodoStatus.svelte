@@ -1,8 +1,11 @@
 <script>
     import Icon from '@iconify/svelte';
+    import StatusSelector from './StatusSelector.svelte';
 
     export let status = undefined;
     export let className = "";
+
+    let isOpen = false;
 
     let iconMap = {
         pending: { icon: 'ic:twotone-pending-actions', class: 'text-white' },
@@ -21,6 +24,14 @@
     function getIconClass(status) {
         return iconMap[status]?.class || 'text-red-500'; // Default icon if status not found
     }
+
+    function toggleSelector() {
+        isOpen = !isOpen;
+        console.log(isOpen)
+    }
 </script>
 
-<Icon icon={getIconName(status)} class={`${className} ${getIconClass(status)} mr-2 text-xl`} />
+<div on:click={toggleSelector} on:keypress={toggleSelector}>
+    <Icon icon={getIconName(status)} class={`${className} ${getIconClass(status)} mr-2 text-xl`} />
+</div>
+<StatusSelector bind:isOpen={isOpen} currentStatus={getIconName(status)}/>

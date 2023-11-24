@@ -35,7 +35,7 @@ For inquiries, please contact james.hedayet@gmail.com.
             .then(res => res.json())
             .then(new_todo => {
                 // Also add the todo to the frontend.
-                todoList = [...todoList, {"todo": new_todo["todo"], "id": new_todo["_id"]}];
+                todoList = [...todoList, new_todo];
             })
         }
     }
@@ -52,7 +52,7 @@ For inquiries, please contact james.hedayet@gmail.com.
         .then(data => {
             // Also remove the todo from the frontend.
             todoList = todoList.filter(todo => {
-                return todo.id != id
+                return todo["_id"] != id
             })
         })
     }
@@ -69,7 +69,7 @@ For inquiries, please contact james.hedayet@gmail.com.
         {#each todoList as listItem}
             <div class="flex items-center">
                 <TodoStatus status={listItem.status} />
-                <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem.id} className="w-full"/>
+                <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem["_id"]} className="w-full"/>
             </div>
         {/each}
     </ul>
