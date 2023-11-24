@@ -3,10 +3,12 @@
     import StatusSelector from './StatusSelector.svelte';
 
     export let status = undefined;
+    export let todo_id = undefined;
     export let className = "";
 
     let isOpen = false;
 
+    // Add here if you want to add any new type of status. Also need to add in StatusSelector.svelte
     let iconMap = {
         pending: { icon: 'ic:twotone-pending-actions', class: 'text-white' },
         progress: { icon: 'mdi:progress-clock', class: 'text-green-300' },
@@ -27,11 +29,10 @@
 
     function toggleSelector() {
         isOpen = !isOpen;
-        console.log(isOpen)
     }
 </script>
 
-<div on:click={toggleSelector} on:keypress={toggleSelector}>
+<div on:click={toggleSelector} on:keypress={toggleSelector} class="cursor-pointer">
     <Icon icon={getIconName(status)} class={`${className} ${getIconClass(status)} mr-2 text-xl`} />
 </div>
-<StatusSelector bind:isOpen={isOpen} currentStatus={getIconName(status)}/>
+<StatusSelector bind:isOpen={isOpen} currentStatusName={getIconName(status)} todo_id={todo_id} bind:status={status} />

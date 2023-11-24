@@ -14,7 +14,12 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // props
     export let todoList = []
-    export let current_project = 0
+
+    // Stores
+    import { currentProject } from "../../stores/projectStore.js";
+
+    let current_project = ""
+    currentProject.subscribe((value) => current_project = value);
 
     // This is for tracking the input of todo.
     let inputValue = "";
@@ -68,7 +73,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     <ul class="w-full px-4 py-2">
         {#each todoList as listItem}
             <div class="flex items-center">
-                <TodoStatus status={listItem.status} />
+                <TodoStatus status={listItem.status} todo_id={listItem["_id"]} />
                 <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem["_id"]} className="w-full"/>
             </div>
         {/each}

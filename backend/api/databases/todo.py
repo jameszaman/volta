@@ -72,3 +72,25 @@ class TodoDB:
             raise HTTPException(status_code=404, detail="Unable to delete resource. Resource not found.")
         else:
             raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
+
+    @classmethod
+    def update_todo_status(cls, id: str, project_id: str, status: str):
+        collection = cls.db['project']
+        # First we get the project where we will insert the new todo.
+        project = collection.find_one({"_id": ObjectId(project_id)})
+        if project:
+            # We found the project, now we must find the todo.
+            for todo in project["todos"]:
+                if todo["_id"] == id:
+                    # We found the todo, now we must delete it.
+                    print(project["todos"])
+                    todo["status"] = status
+                    # Update the project database.
+                    collection.update_one(
+                        {"_id": ObjectId(project_id)},
+                        {"$set": {"todos": project["todos"]}}
+                    )
+                    return {"message": "Todo updated successfully", "status": "success"}
+            raise HTTPException(status_code=404, detail="Unable to delete resource. Resource not found.")
+        else:
+            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")

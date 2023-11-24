@@ -9,18 +9,14 @@ For inquiries, please contact james.hedayet@gmail.com.
     import Input from "../components/Input.svelte";
     import ListItemWithDelete from "./ListItemWithDelete.svelte";
 
+    // Store
+    import { currentProject } from "../../stores/projectStore.js";
+  import { onMount } from "svelte";
+
     // Props
     export let className="";
-    export let current_project = 0;
     // List of projects that will be shown.
     export let projectNames = [];
-
-    // And fill the array with values from the database.
-    fetch(`${import.meta.env.VITE_API_URL}/project/all`)
-    .then(res => res.json())
-    .then(data => {
-        projectNames = [...data.map(project => ({name: project.name, id: project._id}))]
-    });
 
     // Functions for this component.
     function deleteProject(id) {
@@ -43,8 +39,19 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     function changeProject(id) {
         // Change the current project with the id of whichever project was clicked.
-        current_project = id;
+        currentProject.set(id);
     }
+
+    onMount(() => {
+        // And fill the array with values from the database.
+        fetch(`${import.meta.env.VITE_API_URL}/project/all`)
+        .then(res => res.json())
+        .then(data => {
+            projectNames = [...data.map(project => ({name: project.name, id: project._id}))]
+            // Set the current project to the first project in the list.
+            currentProject.set(projectNames[0].id)
+        });
+    })
 </script>
 
 <div class={className + " py-2"}>
