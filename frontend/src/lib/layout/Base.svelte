@@ -6,7 +6,7 @@ Unauthorized use, reproduction, or distribution is strictly prohibited.
 For inquiries, please contact james.hedayet@gmail.com.
 -->
 <script>
-    import Todo from "../components/TodoList.svelte";
+    import TodoList from "../components/TodoList.svelte";
 
     // props
     export let current_project = 0;
@@ -17,11 +17,11 @@ For inquiries, please contact james.hedayet@gmail.com.
         fetch(`${import.meta.env.VITE_API_URL}/todo/all?project_id=${current_project}`)
         .then(res => res.json())
         .then(data => {
-            todo_list = [...data.map(todo => ({todo: todo.todo, id: todo._id}))]
+            todo_list = data
         });
     }
 </script>
 
 <div class="grid justify-items-center col-span-12 md:col-span-11">
-    <Todo bind:todoList={todo_list} bind:current_project={current_project}/>
+    <TodoList bind:todoList={todo_list} bind:current_project={current_project}/>
 </div>

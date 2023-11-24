@@ -10,6 +10,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
     import ListItemWithDelete from "./ListItemWithDelete.svelte";
+    import TodoStatus from "./TodoStatus.svelte";
 
     // props
     export let todoList = []
@@ -66,7 +67,10 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     <ul class="w-full px-4 py-2">
         {#each todoList as listItem}
-            <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem.id}/>
+            <div class="flex items-center">
+                <TodoStatus status={listItem.status} />
+                <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem.id} className="w-full"/>
+            </div>
         {/each}
     </ul>
 </div>
