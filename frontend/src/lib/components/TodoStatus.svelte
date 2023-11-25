@@ -11,11 +11,11 @@
     // Add here if you want to add any new type of status. Also need to add in StatusSelector.svelte
     let iconMap = {
         pending: { icon: 'ic:twotone-pending-actions', class: 'text-white' },
-        progress: { icon: 'mdi:progress-clock', class: 'text-green-300' },
+        progress: { icon: 'mdi:progress-clock', class: 'text-blue-400' },
         completed: { icon: 'carbon:checkmark-filled', class: 'text-green-500' },
         deferred: { icon: 'mdi:latest', class: 'text-orange-500' },
         canceled: { icon: 'material-symbols:cancel', class: 'text-red-500' },
-        archived: { icon: 'ph:archive', class: 'text-green-500' }
+        archived: { icon: 'ph:archive', class: 'text-purple-400' }
     };
 
     // Function to get the icon name based on the status
@@ -33,6 +33,6 @@
 </script>
 
 <div on:click={toggleSelector} on:keypress={toggleSelector} class="cursor-pointer">
-    <Icon icon={getIconName(status)} class={`${className} ${getIconClass(status)} mr-2 text-xl`} />
+    <Icon icon={getIconName(status)} class={`${className} ${getIconClass(status)} m-2 text-xl`} />
 </div>
 <StatusSelector bind:isOpen={isOpen} currentStatusName={getIconName(status)} todo_id={todo_id} bind:status={status} />

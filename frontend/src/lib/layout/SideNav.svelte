@@ -32,13 +32,13 @@ For inquiries, please contact james.hedayet@gmail.com.
     }
 </script>
 
-<nav class="bg-zinc-900 flex flex-col col-span-12 p-4 md:col-span-1">
-    <div class="flex justify-between text-2xl">
+<nav class="bg-zinc-900 flex flex-col col-span-12 p-4 pb-0 md:col-span-1 max-h-full">
+    <div class="flex justify-between text-xl">
         <span>Project List</span>
         <button on:click={toggleButton} class="bg-transparent border-0 cursor-pointer text-white text-2xl">
             <Icon icon={sideNavButtonIcon}/>
         </button>
     </div>
-    <ProjectList className={projectListIsHidden} bind:projectNames={projectNames} />
+    <ProjectList className={projectListIsHidden + " max-h-full"} bind:projectNames={projectNames} />
     <CreateProject className={createProjectIsHidden} bind:projectNames={projectNames}/>
 </nav>

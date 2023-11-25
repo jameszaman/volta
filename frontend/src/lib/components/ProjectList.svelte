@@ -11,7 +11,8 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // Store
     import { currentProject } from "../../stores/projectStore.js";
-  import { onMount } from "svelte";
+    import { onMount } from "svelte";
+    import Icon from "@iconify/svelte";
 
     // Props
     export let className="";
@@ -54,11 +55,14 @@ For inquiries, please contact james.hedayet@gmail.com.
     })
 </script>
 
-<div class={className + " py-2"}>
-    <Input placeholder="Search For A Project" className="w-full rounded outline-none" />
-    <ul>
+<div class={className + " pt-2 max-h-[510px] md:max-h-[830px] flex flex-col"}>
+    <Input placeholder="Search For A Project" className="w-full rounded outline-none mb-1" />
+    <ul class="max-h-full overflow-y-auto">
         {#each projectNames as projectName}
-            <ListItemWithDelete click={() => {changeProject(projectName.id)}} className="hover:underline rounded-lg cursor-pointer" value={projectName.name} id={projectName.id} deleteFunction={deleteProject}/>
+            <li class="flex items-center hover:bg-zinc-800 rounded-lg pl-2">
+                <Icon icon="mdi:folder" class="text-xl" />
+                <ListItemWithDelete click={() => {changeProject(projectName.id)}} className="w-full hover:underline rounded-lg cursor-pointer" value={projectName.name} id={projectName.id} deleteFunction={deleteProject} />
+            </li>
         {/each}
     </ul>
 </div>

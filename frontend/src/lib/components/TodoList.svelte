@@ -64,7 +64,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 </script>
 
 
-<div class="border border-gray-400 p-4 m-4 rounded min-h-[50%] w-[90%] md:max-w-3xl flex flex-col items-center">
+<div class="border border-gray-400 p-4 m-4 rounded h-[85vh] w-[90%] md:max-w-3xl flex flex-col items-center bg-zinc-900 overflow-y-auto">
     <form on:submit|preventDefault={addToDo} action="#" class="flex w-full px-4">
         <Input bind:value={inputValue} placeholder="New Todo" className="rounded rounded-r-none outline-none w-full"/>
         <Button className=" text-sm py-0 rounded-l-none"> Submit </Button>
@@ -72,7 +72,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     <ul class="w-full px-4 py-2">
         {#each todoList as listItem}
-            <div class="flex items-center">
+            <div class="flex items-center hover:bg-zinc-800 rounded-lg relative">
                 <TodoStatus status={listItem.status} todo_id={listItem["_id"]} />
                 <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem["_id"]} className="w-full"/>
             </div>

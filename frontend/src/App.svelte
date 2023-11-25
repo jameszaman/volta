@@ -7,7 +7,7 @@
 
 <TailwindCss />
 
-<main class="min-h-screen grid grid-rows-[6rem_auto] grid-cols-[20rem_auto]">
+<main class="min-h-screen grid grid-rows-[4rem_auto] grid-cols-[20rem_auto]">
     <TopNav />
     <SideNav />
     <Base />

@@ -16,11 +16,11 @@
     // Add here if you want to add any new type of status. Also need to add in TodoStatus.svelte
     let allIcons = [
         { status: "pending", icon: 'ic:twotone-pending-actions', class: 'text-white' },
-        { status: "progress", icon: 'mdi:progress-clock', class: 'text-green-300' },
+        { status: "progress", icon: 'mdi:progress-clock', class: 'text-blue-400' },
         { status: "completed", icon: 'carbon:checkmark-filled', class: 'text-green-500' },
         { status: "deferred", icon: 'mdi:latest', class: 'text-orange-500' },
         { status: "canceled", icon: 'material-symbols:cancel', class: 'text-red-500' },
-        { status: "archived", icon: 'ph:archive', class: 'text-green-500' }
+        { status: "archived", icon: 'ph:archive', class: 'text-purple-400' }
     ]
 
     function selectStatus(newStatus) {
@@ -50,7 +50,7 @@
 
 </script>
 
-<div on:click={statusSelectorToggle} on:keypress={statusSelectorToggle} class:icon-container-open={isOpen} class:icon-container-closed={!isOpen} class="flex justify-center outline-none rounded-xl absolute bg-gray-900 w-0 z-10 overflow-hidden">
+<div on:click={statusSelectorToggle} on:keypress={statusSelectorToggle} class:icon-container-open={isOpen} class:icon-container-closed={!isOpen} class="flex justify-center outline-none rounded-xl absolute bg-gray-900 w-0 z-10 overflow-hidden left-2">
     {#each allIcons as icon}
         <span on:click={() => selectStatus(icon.status)} on:keypress={() => selectStatus(icon.status)}>
             <Icon
