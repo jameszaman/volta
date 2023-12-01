@@ -32,7 +32,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     }
 </script>
 
-<nav class="bg-zinc-900 flex flex-col col-span-12 p-4 pb-0 md:col-span-1 max-h-full">
+<nav class="bg-zinc-900 flex flex-col col-span-12 p-4 pb-0 md:col-span-1 max-h-96 overflow-y-auto md:max-h-full">
     <div class="flex justify-between text-xl">
         <span>Project List</span>
         <button on:click={toggleButton} class="bg-transparent border-0 cursor-pointer text-white text-2xl">

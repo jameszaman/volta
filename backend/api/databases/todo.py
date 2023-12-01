@@ -112,7 +112,6 @@ class TodoDB:
             for todo in project["todos"]:
                 if todo["_id"] == id:
                     # We found the todo, now we must delete it.
-                    print(project["todos"])
                     todo["status"] = status
                     # Update the project database.
                     collection.update_one(

@@ -6,7 +6,7 @@ Unauthorized use, reproduction, or distribution is strictly prohibited.
 For inquiries, please contact james.hedayet@gmail.com.
 -->
 <script>
-    import Icon from '@iconify/svelte'
+  import Icon from "./Icon.svelte";
 
     // Props
     // Functions
@@ -19,10 +19,12 @@ For inquiries, please contact james.hedayet@gmail.com.
     export let className = ""
     // Variables
     let isEditModalOpen = false
-    let todoValue = "";
+    let todoInputValue = value;
 
     $: {
-        todoValue = todoValue
+        // Whenever the value changes anywhere, update the todoInputValue global variable
+        // Without this, todoInputValue does not update when changed inside todoInputValue
+        todoInputValue = todoInputValue
     }
 
     function toggleEditModal() {
@@ -30,43 +32,51 @@ For inquiries, please contact james.hedayet@gmail.com.
     }
 
     function editTodo(event) {
+        // Close the model if the user presses escape
+        if(event.key == "Escape") {
+            toggleEditModal();
+            return
+        }
+        // If the user presses enter, then update the todo
         if(event.key !== 'Enter') {
             return
         }
-        editFunction(id, todoValue);
+        // Do not update if the todo is empty
+        if(todoInputValue !== "") {
+            editFunction(id, todoInputValue);
+        }
+        // And also close the modal
         toggleEditModal();
     }
 </script>
 
 <li 
-    class={className + " list-item m-2 list-none relative group"}
+    class={className + " list-item m-2 list-none relative"}
+    class:group={!isEditModalOpen}
     on:click={click}
     on:keypress={click}
 >
-    <span class="break-all" class:hidden={isEditModalOpen}>{value}</span>
-    <input type="text" bind:value={todoValue} class:hidden={!isEditModalOpen} on:keypress={editTodo}>
-    <!-- Edit Icon -->
-    <span
-        class="text-red-500 group-hover:opacity-100 opacity-0 cursor-pointer absolute right-6 text-2xl"
-        on:click={() => toggleEditModal()}
-        on:keypress={(event) => {
-            if(event.key === 'Enter') {
-                toggleEditModal()
-            }
-        }}
-    >
-        <Icon icon="line-md:edit-twotone"/>
-    </span>
-    <!-- Delete Icon -->
-    <span
-        class="text-red-500 group-hover:opacity-100 opacity-0 cursor-pointer absolute right-0 text-2xl"
-        on:click={() => deleteFunction(id)}
-        on:keypress={(event) => {
-            if(event.key === 'Enter') {
-                deleteFunction(id)
-            }
-        }}
-    >
-        <Icon icon="ic:baseline-delete"/>
-    </span>
+    <span class="break-all group-hover:pr-10" class:hidden={isEditModalOpen}>{value}</span>
+    <div class:hidden={!isEditModalOpen}>
+        <input type="text" bind:value={todoInputValue} class="w-full outline-none rounded bg-zinc-700 px-2" on:keyup={editTodo}>
+        <Icon
+            icon="carbon:close-filled"
+            className="cursor-pointer hover:opacity-80 absolute right-2 top-1"
+            actionFunction={() => toggleEditModal()}
+        />
+    </div>
+    <div class="absolute right-0 top-0 flex" class:hidden={isEditModalOpen}>
+        <!-- Edit Icon -->
+        <Icon
+            icon="iconamoon:edit-duotone"
+            className="text-red-500 group-hover:opacity-100 opacity-0 cursor-pointer text-2xl"
+            actionFunction={() => toggleEditModal()}
+        />
+        <!-- Delete Icon -->
+        <Icon
+            icon="ic:baseline-delete"
+            className="text-red-500 group-hover:opacity-100 opacity-0 cursor-pointer text-2xl"
+            actionFunction={() => deleteFunction(id)}
+        />
+    </div>
 </li>
