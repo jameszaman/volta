@@ -11,8 +11,18 @@ from datetime import datetime
 
 class TodoSchema(BaseModel):
     # TODO: Will be using proper user in the future.
+    project_id: str = Field(...)
     user: str = Field(default="admin")
     status: str = Field(default="pending")
     todo: str = Field(...)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class TodoUpdateSchema(BaseModel):
+    # TODO: Will be using proper user in the future.
+    project_id: str = Field(...)
+    user: str = Field(default="admin")
+    todo: str = Field(...)
+    todo_id: str = Field(...)
     updated_at: datetime = Field(default_factory=datetime.utcnow)

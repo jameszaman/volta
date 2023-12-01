@@ -10,7 +10,7 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 from ..databases.todo import TodoDB
-from ..models.todo import TodoSchema
+from ..models.todo import TodoSchema, TodoUpdateSchema
 
 router = APIRouter(prefix=f'{API_PREFIX}/todo', tags=['Todo'])
 
@@ -19,12 +19,24 @@ router = APIRouter(prefix=f'{API_PREFIX}/todo', tags=['Todo'])
     response_description="Add a new Todo"
 )
 def create_todo(
-    project_id: str,
-    todo: TodoSchema = Body(...)
+    payload: TodoSchema = Body(...)
 ):
-    todo = jsonable_encoder(todo)
-    new_todo = TodoDB.add_todo(project_id, todo)
+    payload = jsonable_encoder(payload)
+    new_todo = TodoDB.add_todo(payload)
     return new_todo
+
+
+@router.patch(
+    '/update_todo',
+    response_description="Add a new Todo"
+)
+def create_todo(
+    payload: TodoUpdateSchema = Body(...)
+):
+    payload = jsonable_encoder(payload)
+    updated_todo = TodoDB.update_todo(payload)
+    return updated_todo
+
 
 @router.get(
     '/all',
@@ -33,6 +45,7 @@ def create_todo(
 def get_all_todo(project_id: str):
     todo_list = TodoDB.get_todo_by_project(project_id)
     return todo_list
+
 
 @router.delete(
     '/delete',
@@ -44,6 +57,7 @@ def delete_todo(
 ):
     response = TodoDB.delete_todo(id, project_id)
     return response
+
 
 @router.patch(
     '/update_status',
