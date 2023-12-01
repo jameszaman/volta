@@ -66,15 +66,15 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     function editTodo(id, new_todo) {
         // Make a PATCH request with necessary body to update a todo.
-        fetch(`${import.meta.env.VITE_API_URL}/todo/update_todo`, {
+        fetch(`${import.meta.env.VITE_API_URL}/todo/update_text`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
             },
             body: JSON.stringify({
-                "todo": new_todo,
                 "todo_id": id,
+                "todo": new_todo,
                 "project_id": current_project,
             })
         })
@@ -102,7 +102,13 @@ For inquiries, please contact james.hedayet@gmail.com.
         {#each todoList as listItem}
             <div class="flex items-center hover:bg-zinc-800 rounded-lg relative">
                 <TodoStatus status={listItem.status} todo_id={listItem["_id"]} />
-                <ListItemWithEditDelete deleteFunction={deleteTodo} editFunction={editTodo} value={listItem.todo} id={listItem["_id"]} className="w-full"/>
+                <ListItemWithEditDelete
+                    value={listItem.todo}
+                    id={listItem["_id"]}
+                    editFunction={editTodo}
+                    deleteFunction={deleteTodo}
+                    className="w-full"
+                />
             </div>
         {/each}
     </ul>

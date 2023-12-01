@@ -5,11 +5,12 @@ This code is the intellectual property of James Hedayet Zaman.
 Unauthorized use, reproduction, or distribution is strictly prohibited.
 For inquiries, please contact james.hedayet@gmail.com.
 """
+from config import API_PREFIX
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
-from config import API_PREFIX
-from ..models.project import ProjectSchema
+
 from ..databases.project import ProjectDB
+from ..models.project import ProjectSchema, ProjectUpdateSchema
 
 router = APIRouter(prefix=f'{API_PREFIX}/project', tags=['Project'])
 
@@ -32,10 +33,28 @@ def get_all_project():
     project_list = ProjectDB.get_all_project()
     return project_list
 
+@router.patch(
+    '/update_name',
+    response_description="Add a new Todo"
+)
+def update_todo(
+    payload: ProjectUpdateSchema = Body(...)
+):
+    try:
+        payload = jsonable_encoder(payload)
+        updated_todo = ProjectDB.update_project(payload)
+        return updated_todo
+    except Exception as e:
+        raise e
+
+
 @router.delete(
     '/delete',
     response_description='Delete a single Project'
 )
 def delete_project(id: str):
-    response = ProjectDB.delete_project(id)
-    return response
+    try:
+        response = ProjectDB.delete_project(id)
+        return response
+    except Exception as e:
+        raise e

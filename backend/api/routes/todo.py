@@ -27,10 +27,10 @@ def create_todo(
 
 
 @router.patch(
-    '/update_todo',
+    '/update_text',
     response_description="Add a new Todo"
 )
-def create_todo(
+def update_text(
     payload: TodoUpdateSchema = Body(...)
 ):
     payload = jsonable_encoder(payload)

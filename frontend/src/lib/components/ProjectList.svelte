@@ -38,6 +38,30 @@ For inquiries, please contact james.hedayet@gmail.com.
         })
     }
 
+    function editProject(id, new_name) {
+        // Make a PATCH request with necessary body to update a todo.
+        fetch(`${import.meta.env.VITE_API_URL}/project/update_name`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+            },
+            body: JSON.stringify({
+                "project_id": id,
+                "project_name": new_name,
+            })
+        })
+        .then(res => res.json())
+        .then(updated_todo => {
+            projectNames = projectNames.map(projectName => {
+                if(projectName.id == updated_todo["_id"]) {
+                    projectName.name = updated_todo["name"]
+                }
+                return projectName
+            })
+        })
+    }
+
     function changeProject(id) {
         // Change the current project with the id of whichever project was clicked.
         currentProject.set(id);
@@ -58,10 +82,17 @@ For inquiries, please contact james.hedayet@gmail.com.
 <div class={className + " pt-2 max-h-[510px] md:max-h-[830px] flex flex-col"}>
     <Input placeholder="Search For A Project" className="w-full rounded outline-none mb-1" />
     <ul class="max-h-full overflow-y-auto">
-        {#each projectNames as projectName}
+        {#each projectNames as project}
             <li class="flex items-center hover:bg-zinc-800 rounded-lg pl-2">
                 <Icon icon="mdi:folder" class="text-xl" />
-                <ListItemWithEditDelete click={() => {changeProject(projectName.id)}} className="w-full hover:underline rounded-lg cursor-pointer" value={projectName.name} id={projectName.id} deleteFunction={deleteProject} />
+                <ListItemWithEditDelete
+                    value={project.name}
+                    id={project.id}
+                    click={() => {changeProject(project.id)}}
+                    deleteFunction={deleteProject}
+                    editFunction={editProject}
+                    className="w-full hover:underline rounded-lg cursor-pointer"
+                />
             </li>
         {/each}
     </ul>

@@ -6,10 +6,13 @@ Unauthorized use, reproduction, or distribution is strictly prohibited.
 For inquiries, please contact james.hedayet@gmail.com.
 """
 
-from pydantic import BaseModel, Field
 from datetime import datetime
-from .todo import TodoSchema
 from typing import List
+
+from pydantic import BaseModel, Field
+
+from .todo import TodoSchema
+
 
 class ProjectSchema(BaseModel):
     # TODO: Will be using proper user in the future.
@@ -17,4 +20,12 @@ class ProjectSchema(BaseModel):
     name: str = Field(...)
     todos: List[TodoSchema] = Field(default=[])
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class ProjectUpdateSchema(BaseModel):
+    # TODO: Will be using proper user in the future.
+    user: str = Field(default="admin")
+    project_id: str = Field(...)
+    project_name: str = Field(...)
     updated_at: datetime = Field(default_factory=datetime.utcnow)

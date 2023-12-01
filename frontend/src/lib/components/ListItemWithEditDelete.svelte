@@ -5,6 +5,10 @@ This code is the intellectual property of James Hedayet Zaman.
 Unauthorized use, reproduction, or distribution is strictly prohibited.
 For inquiries, please contact james.hedayet@gmail.com.
 -->
+<!-- 
+    * You must put id for using edit and delete function.
+    * You must also follow the the proper function format.
+ -->
 <script>
   import Icon from "./Icon.svelte";
 
@@ -19,12 +23,12 @@ For inquiries, please contact james.hedayet@gmail.com.
     export let className = ""
     // Variables
     let isEditModalOpen = false
-    let todoInputValue = value;
+    let inputValue = value;
 
     $: {
-        // Whenever the value changes anywhere, update the todoInputValue global variable
-        // Without this, todoInputValue does not update when changed inside todoInputValue
-        todoInputValue = todoInputValue
+        // Whenever the value changes anywhere, update the inputValue global variable
+        // Without this, inputValue does not update when changed inside inputValue
+        inputValue = inputValue
     }
 
     function toggleEditModal() {
@@ -42,8 +46,8 @@ For inquiries, please contact james.hedayet@gmail.com.
             return
         }
         // Do not update if the todo is empty
-        if(todoInputValue !== "") {
-            editFunction(id, todoInputValue);
+        if(inputValue !== "") {
+            editFunction(id, inputValue);
         }
         // And also close the modal
         toggleEditModal();
@@ -58,7 +62,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 >
     <span class="break-all group-hover:pr-10" class:hidden={isEditModalOpen}>{value}</span>
     <div class:hidden={!isEditModalOpen}>
-        <input type="text" bind:value={todoInputValue} class="w-full outline-none rounded bg-zinc-700 px-2" on:keyup={editTodo}>
+        <input type="text" bind:value={inputValue} class="w-full outline-none rounded bg-zinc-700 px-2" on:keyup={editTodo}>
         <Icon
             icon="carbon:close-filled"
             className="cursor-pointer hover:opacity-80 absolute right-2 top-1"
@@ -69,7 +73,7 @@ For inquiries, please contact james.hedayet@gmail.com.
         <!-- Edit Icon -->
         <Icon
             icon="iconamoon:edit-duotone"
-            className="text-red-500 group-hover:opacity-100 opacity-0 cursor-pointer text-2xl"
+            className="text-blue-300 group-hover:opacity-100 opacity-0 cursor-pointer text-2xl"
             actionFunction={() => toggleEditModal()}
         />
         <!-- Delete Icon -->
