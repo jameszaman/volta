@@ -7,7 +7,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 -->
 <script>
     import Input from "../components/Input.svelte";
-    import ListItemWithDelete from "./ListItemWithDelete.svelte";
+    import ListItemWithEditDelete from "./ListItemWithEditDelete.svelte";
 
     // Store
     import { currentProject } from "../../stores/projectStore.js";
@@ -61,7 +61,7 @@ For inquiries, please contact james.hedayet@gmail.com.
         {#each projectNames as projectName}
             <li class="flex items-center hover:bg-zinc-800 rounded-lg pl-2">
                 <Icon icon="mdi:folder" class="text-xl" />
-                <ListItemWithDelete click={() => {changeProject(projectName.id)}} className="w-full hover:underline rounded-lg cursor-pointer" value={projectName.name} id={projectName.id} deleteFunction={deleteProject} />
+                <ListItemWithEditDelete click={() => {changeProject(projectName.id)}} className="w-full hover:underline rounded-lg cursor-pointer" value={projectName.name} id={projectName.id} deleteFunction={deleteProject} />
             </li>
         {/each}
     </ul>

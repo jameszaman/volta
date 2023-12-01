@@ -9,7 +9,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     // These are the components.
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
-    import ListItemWithDelete from "./ListItemWithDelete.svelte";
+    import ListItemWithEditDelete from "./ListItemWithEditDelete.svelte";
     import TodoStatus from "./TodoStatus.svelte";
 
     // props
@@ -27,13 +27,14 @@ For inquiries, please contact james.hedayet@gmail.com.
     function addToDo() {
         if(inputValue) {
             // Make a POST request with necessary parameters to create a new todo.
-            fetch(`${import.meta.env.VITE_API_URL}/todo/new?project_id=${current_project}`, {
+            fetch(`${import.meta.env.VITE_API_URL}/todo/new`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "*/*",
                 },
                 body: JSON.stringify({
+                    "project_id": current_project,
                     "todo": inputValue,
                 })
             })
@@ -44,6 +45,7 @@ For inquiries, please contact james.hedayet@gmail.com.
             })
         }
     }
+
     function deleteTodo(id) {
         // Make a DELETE request with necessary parameters to delete a todo.
         fetch(`${import.meta.env.VITE_API_URL}/todo/delete?id=${id}&project_id=${current_project}`, {
@@ -61,6 +63,32 @@ For inquiries, please contact james.hedayet@gmail.com.
             })
         })
     }
+
+    function editTodo(id, new_todo) {
+        // Make a PATCH request with necessary body to update a todo.
+        fetch(`${import.meta.env.VITE_API_URL}/todo/update_todo`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+            },
+            body: JSON.stringify({
+                "todo": new_todo,
+                "todo_id": id,
+                "project_id": current_project,
+            })
+        })
+        .then(res => res.json())
+        .then(updated_todo => {
+            // Also update the todo from the frontend.
+            todoList = todoList.map(todo => {
+                if(todo["_id"] == id) {
+                    todo["todo"] = updated_todo["todo"]
+                }
+                return todo
+            })
+        })
+    }
 </script>
 
 
@@ -74,7 +102,7 @@ For inquiries, please contact james.hedayet@gmail.com.
         {#each todoList as listItem}
             <div class="flex items-center hover:bg-zinc-800 rounded-lg relative">
                 <TodoStatus status={listItem.status} todo_id={listItem["_id"]} />
-                <ListItemWithDelete deleteFunction={deleteTodo} value={listItem.todo} id={listItem["_id"]} className="w-full"/>
+                <ListItemWithEditDelete deleteFunction={deleteTodo} editFunction={editTodo} value={listItem.todo} id={listItem["_id"]} className="w-full"/>
             </div>
         {/each}
     </ul>
