@@ -32,8 +32,7 @@ class ProjectDB:
         cursor = collection.find({}, {})
         project_list = []
         for project in cursor:
-            project["_id"] = str(project["_id"])
-            project_list.append(project)
+            project_list.append({"_id": str(project["_id"]), "name": project["name"]})
         return project_list
     
     @classmethod
