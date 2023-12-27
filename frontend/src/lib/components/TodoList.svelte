@@ -9,13 +9,19 @@ For inquiries, please contact james.hedayet@gmail.com.
     // These are the components.
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
+    import TodoItem from "./TodoItem.svelte";
 
     // props
-    export let todoList = []
+    export let todoList = [];
+    // prop functions
+    export let dragOver = () => {};
+    export let dragDrop = () => {};
+    export let dragLeave = () => {};
+    export let dragEnd = () => {};
 
     // Stores
     import { currentProject } from "../../stores/projectStore.js";
-  import TodoItem from "./TodoItem.svelte";
+    import { currentlyDraggingTodoIndex } from "../../stores/todoStore";
 
     let current_project = ""
     currentProject.subscribe((value) => current_project = value);
@@ -88,18 +94,38 @@ For inquiries, please contact james.hedayet@gmail.com.
             })
         })
     }
+
+    function dragstart_handler(event, index) {
+        // Set the item that is being dragged.
+        currentlyDraggingTodoIndex.set(index);
+        // Set the drag's format and data.
+        event.dataTransfer.setData("text/plain", event.target.id);
+        event.dataTransfer.dropEffect = "move";
+        // Remove the dragged item from
+    }
 </script>
 
 
-<div class="border border-gray-400 p-4 m-4 rounded h-[85vh] w-[90%] md:max-w-3xl flex flex-col items-center bg-zinc-900 overflow-y-auto">
+<div
+    class="border border-gray-400 p-4 m-4 rounded h-[85vh] w-[90%] md:max-w-3xl flex flex-col items-center bg-zinc-900 overflow-y-auto"
+    on:dragover={dragOver}
+    on:drop={dragDrop}
+    on:dragleave={dragLeave}
+    on:dragend={dragEnd}
+    >
     <form on:submit|preventDefault={addToDo} action="#" class="flex w-full px-4">
         <Input bind:value={inputValue} placeholder="New Todo" className="rounded rounded-r-none outline-none w-full"/>
         <Button className=" text-sm py-0 rounded-l-none"> Submit </Button>
     </form>
 
     <ul class="w-full px-4 py-2">
-        {#each todoList as listItem}
-            <TodoItem listItem={listItem} editTodo={editTodo} deleteTodo={deleteTodo} />
+        {#each todoList as listItem, index}
+            <TodoItem
+                listItem={listItem}
+                editTodo={editTodo}
+                deleteTodo={deleteTodo}
+                dragStart={(e) => dragstart_handler(e, index)}
+            />
         {/each}
     </ul>
 </div>
