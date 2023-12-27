@@ -9,14 +9,13 @@ For inquiries, please contact james.hedayet@gmail.com.
     // These are the components.
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
-    import ListItemWithEditDelete from "./ListItemWithEditDelete.svelte";
-    import TodoStatus from "./TodoStatus.svelte";
 
     // props
     export let todoList = []
 
     // Stores
     import { currentProject } from "../../stores/projectStore.js";
+  import TodoItem from "./TodoItem.svelte";
 
     let current_project = ""
     currentProject.subscribe((value) => current_project = value);
@@ -100,16 +99,7 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     <ul class="w-full px-4 py-2">
         {#each todoList as listItem}
-            <div class="flex items-center hover:bg-zinc-800 rounded-lg relative">
-                <TodoStatus status={listItem.status} todo_id={listItem["_id"]} />
-                <ListItemWithEditDelete
-                    value={listItem.todo}
-                    id={listItem["_id"]}
-                    editFunction={editTodo}
-                    deleteFunction={deleteTodo}
-                    className="w-full"
-                />
-            </div>
+            <TodoItem listItem={listItem} editTodo={editTodo} deleteTodo={deleteTodo} />
         {/each}
     </ul>
 </div>
