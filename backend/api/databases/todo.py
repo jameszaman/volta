@@ -7,9 +7,10 @@ For inquiries, please contact james.hedayet@gmail.com.
 """
 from pymongo import MongoClient
 from config import MONGO_DATABASE_URI, MONGO_DATABASE_NAME
-from ..models.todo import TodoSchema
+from ..models.todo import TodoPositionUpdateRequest, TodoSchema
 from bson import ObjectId
 from fastapi import HTTPException
+
 
 class TodoDB:
     client = None
@@ -20,10 +21,9 @@ class TodoDB:
         cls.client = MongoClient(str(MONGO_DATABASE_URI))
         cls.db = cls.client[MONGO_DATABASE_NAME]
 
-
     @classmethod
     def add_todo(cls, payload: TodoSchema):
-        collection = cls.db['project']
+        collection = cls.db["project"]
         # First we get the project where we will insert the new todo.
         project = collection.find_one({"_id": ObjectId(payload["project_id"])})
 
@@ -36,16 +36,18 @@ class TodoDB:
             # Update the project database.
             collection.update_one(
                 {"_id": ObjectId(payload["project_id"])},
-                {"$set": {"todos": project["todos"]}}
+                {"$set": {"todos": project["todos"]}},
             )
-            return project['todos'][-1]
+            return project["todos"][-1]
         else:
-            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
-
+            raise HTTPException(
+                status_code=404,
+                detail="Invalid Project Id. Please provide correct project ID.",
+            )
 
     @classmethod
     def update_todo(cls, payload: TodoSchema):
-        collection = cls.db['project']
+        collection = cls.db["project"]
         # First we get the project where we will insert the new todo.
         project = collection.find_one({"_id": ObjectId(payload["project_id"])})
 
@@ -60,29 +62,33 @@ class TodoDB:
                     # Update the project database.
                     collection.update_one(
                         {"_id": ObjectId(payload["project_id"])},
-                        {"$set": {"todos": project["todos"]}}
+                        {"$set": {"todos": project["todos"]}},
                     )
 
                     return todo_item
         else:
-            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
-
+            raise HTTPException(
+                status_code=404,
+                detail="Invalid Project Id. Please provide correct project ID.",
+            )
 
     @classmethod
     def get_todo_by_project(cls, project_id: str):
-        collection = cls.db['project']
+        collection = cls.db["project"]
         # First we get the project where we will insert the new todo.
         project = collection.find_one({"_id": ObjectId(project_id)})
 
         if project:
             return project["todos"]
         else:
-            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
-
+            raise HTTPException(
+                status_code=404,
+                detail="Invalid Project Id. Please provide correct project ID.",
+            )
 
     @classmethod
     def delete_todo(cls, id: str, project_id: str):
-        collection = cls.db['project']
+        collection = cls.db["project"]
         # First we get the project where we will insert the new todo.
         project = collection.find_one({"_id": ObjectId(project_id)})
         if project:
@@ -94,17 +100,21 @@ class TodoDB:
                     # Update the project database.
                     collection.update_one(
                         {"_id": ObjectId(project_id)},
-                        {"$set": {"todos": project["todos"]}}
+                        {"$set": {"todos": project["todos"]}},
                     )
                     return {"message": "Todo deleted successfully"}
-            raise HTTPException(status_code=404, detail="Unable to delete resource. Resource not found.")
+            raise HTTPException(
+                status_code=404, detail="Unable to delete resource. Resource not found."
+            )
         else:
-            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
-
+            raise HTTPException(
+                status_code=404,
+                detail="Invalid Project Id. Please provide correct project ID.",
+            )
 
     @classmethod
     def update_todo_status(cls, id: str, project_id: str, status: str):
-        collection = cls.db['project']
+        collection = cls.db["project"]
         # First we get the project where we will insert the new todo.
         project = collection.find_one({"_id": ObjectId(project_id)})
         if project:
@@ -116,9 +126,46 @@ class TodoDB:
                     # Update the project database.
                     collection.update_one(
                         {"_id": ObjectId(project_id)},
-                        {"$set": {"todos": project["todos"]}}
+                        {"$set": {"todos": project["todos"]}},
                     )
                     return {"message": "Todo updated successfully", "status": "success"}
-            raise HTTPException(status_code=404, detail="Unable to delete resource. Resource not found.")
+            raise HTTPException(
+                status_code=404, detail="Unable to delete resource. Resource not found."
+            )
         else:
-            raise HTTPException(status_code=404, detail="Invalid Project Id. Please provide correct project ID.")
+            raise HTTPException(
+                status_code=404,
+                detail="Invalid Project Id. Please provide correct project ID.",
+            )
+
+    @classmethod
+    def update_todo_position(cls, payload: TodoPositionUpdateRequest):
+        collection = cls.db["project"]
+        # First we get the project where we will insert the new todo.
+        project = collection.find_one({"_id": ObjectId(payload.project_id)})
+        if project:
+            try:
+                # We found the project, Now let's swap the positions.
+                (
+                    project["todos"][payload.new_position],
+                    project["todos"][payload.previous_position],
+                ) = (
+                    project["todos"][payload.previous_position],
+                    project["todos"][payload.new_position],
+                )
+                # Update the project database.
+                collection.update_one(
+                    {"_id": ObjectId(payload.project_id)},
+                    {"$set": {"todos": project["todos"]}},
+                )
+                return {"message": "Todo updated successfully", "status": "success"}
+            except Exception as e:
+                raise HTTPException(
+                    status_code=500,
+                    detail="Error updating todo position.",
+                )
+        else:
+            raise HTTPException(
+                status_code=404,
+                detail="Invalid Project Id. Please provide correct project ID.",
+            )

@@ -6,8 +6,10 @@ Unauthorized use, reproduction, or distribution is strictly prohibited.
 For inquiries, please contact james.hedayet@gmail.com.
 """
 
-from pydantic import BaseModel, Field
 from datetime import datetime
+
+from pydantic import BaseModel, Field
+
 
 class TodoSchema(BaseModel):
     # TODO: Will be using proper user in the future.
@@ -26,3 +28,8 @@ class TodoUpdateSchema(BaseModel):
     todo: str = Field(...)
     todo_id: str = Field(...)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class TodoPositionUpdateRequest(BaseModel):
+    project_id: str = Field(...)
+    previous_position: int = Field(...)
+    new_position: int = Field(...)

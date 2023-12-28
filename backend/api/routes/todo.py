@@ -10,7 +10,7 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 from ..databases.todo import TodoDB
-from ..models.todo import TodoSchema, TodoUpdateSchema
+from ..models.todo import TodoPositionUpdateRequest, TodoSchema, TodoUpdateSchema
 
 router = APIRouter(prefix=f'{API_PREFIX}/todo', tags=['Todo'])
 
@@ -69,4 +69,15 @@ def update_todo_status(
     status: str
 ):
     response = TodoDB.update_todo_status(id, project_id, status)
+    return response
+
+
+@router.patch(
+    '/update_todo_position',
+    response_description='Update the priority of a single Todo'
+)
+def update_todo_position(
+    payload: TodoPositionUpdateRequest = Body(..., description="The payload for updating the position of a todo")
+):
+    response = TodoDB.update_todo_position(payload)
     return response
