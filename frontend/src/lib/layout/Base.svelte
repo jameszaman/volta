@@ -38,6 +38,31 @@ For inquiries, please contact james.hedayet@gmail.com.
         const droppedElementIndex = getElementToSwitch(event.currentTarget, event.clientY);
 
         if (itemDraggingIndex !== null) {
+            fetch(`${import.meta.env.VITE_API_URL}/todo/update_todo_position`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    project_id: current_project,
+                    previous_position: itemDraggingIndex,
+                    new_position: droppedElementIndex,
+                }),
+            })
+            .then((res) => {
+                if(!res.ok) {
+                    throw new Error("Something went wrong");
+                }
+                return res.json()
+            })
+            .then((data) => {
+                
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            // This is switching in the frontend. This should be happening inside the then block, but does not work there.
+            // I do not understand why.
             [todo_list[droppedElementIndex], todo_list[itemDraggingIndex]] = [todo_list[itemDraggingIndex], todo_list[droppedElementIndex]]
         }
     }
