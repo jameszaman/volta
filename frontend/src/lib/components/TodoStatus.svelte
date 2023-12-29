@@ -39,7 +39,8 @@ For inquiries, please contact james.hedayet@gmail.com.
     }
 </script>
 
-<div on:click={toggleSelector} on:keypress={toggleSelector} class="cursor-pointer">
+<div on:click={toggleSelector} on:keypress={toggleSelector} class="cursor-pointer relative group">
+    <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 text-xs rounded opacity-0 group-hover:opacity-100 transition duration-500">{status}</div>
     <Icon icon={getIconName(status)} class={`${className} ${getIconClass(status)} m-2 text-xl`} />
 </div>
 <StatusSelector bind:isOpen={isOpen} currentStatusName={getIconName(status)} todo_id={todo_id} bind:status={status} />
