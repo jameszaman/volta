@@ -81,3 +81,15 @@ def update_todo_position(
 ):
     response = TodoDB.update_todo_position(payload)
     return response
+
+@router.patch(
+    '/todo_priority',
+    response_description='Update the priority of a single Todo'
+)
+def update_todo_priority(
+    id: str,
+    project_id: str,
+    priority: int
+):
+    response = TodoDB.update_todo_priority(id, project_id, priority)
+    return response
