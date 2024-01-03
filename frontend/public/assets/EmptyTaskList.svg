@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 214 331.01">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-2 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke-width: .25px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="Full_Clipboard" data-name="Full Clipboard">
+      <g id="Clipboard">
+        <path d="m206.17,39.01c3.77,0,6.83,3.06,6.83,6.83v277.34c0,3.77-3.06,6.83-6.83,6.83H7.83c-3.77,0-6.83-3.06-6.83-6.83V45.84c0-3.77,3.06-6.83,6.83-6.83h198.34m0-1H7.83c-4.32,0-7.83,3.51-7.83,7.83v277.34c0,4.32,3.51,7.83,7.83,7.83h198.34c4.32,0,7.83-3.51,7.83-7.83V45.84c0-4.32-3.51-7.83-7.83-7.83h0Z"/>
+        <g>
+          <rect class="cls-1" x="31.5" y="27.51" width="151" height="31" rx="4.15" ry="4.15"/>
+          <path d="m178.35,28.01c2.01,0,3.65,1.64,3.65,3.65v22.69c0,2.01-1.64,3.65-3.65,3.65H35.65c-2.01,0-3.65-1.64-3.65-3.65v-22.69c0-2.01,1.64-3.65,3.65-3.65h142.69m0-1H35.65c-2.57,0-4.65,2.08-4.65,4.65v22.69c0,2.57,2.08,4.65,4.65,4.65h142.69c2.57,0,4.65-2.08,4.65-4.65v-22.69c0-2.57-2.08-4.65-4.65-4.65h0Z"/>
+        </g>
+        <path class="cls-2" d="m87.88.5h38.25c12.63,0,22.88,10.25,22.88,22.88v4.12h-84v-4.12c0-12.63,10.25-22.88,22.88-22.88Z"/>
+        <path class="cls-5" d="m107,6.28c4.85,0,8.77,3.97,8.77,8.86s-3.93,8.86-8.77,8.86c-4.85,0-8.77-3.97-8.77-8.86s3.93-8.86,8.77-8.86Z"/>
+      </g>
+      <g id="Checkpoint">
+        <rect class="cls-3" x="18.25" y="89.51" width="33.02" height="31"/>
+        <rect class="cls-4" x="66.75" y="89.01" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="99.01" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="109.01" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="118.01" width="129" height="3" rx=".5" ry=".5"/>
+      </g>
+      <g id="Checkpoint-2" data-name="Checkpoint">
+        <rect class="cls-3" x="18.25" y="143.15" width="33.02" height="31"/>
+        <rect class="cls-4" x="66.75" y="142.65" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="152.65" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="162.65" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="171.65" width="129" height="3" rx=".5" ry=".5"/>
+      </g>
+      <g id="Checkpoint-3" data-name="Checkpoint">
+        <rect class="cls-3" x="18.25" y="196.33" width="33.02" height="31"/>
+        <rect class="cls-4" x="66.75" y="195.83" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="205.83" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="215.83" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="224.83" width="129" height="3" rx=".5" ry=".5"/>
+      </g>
+      <g id="Checkpoint-4" data-name="Checkpoint">
+        <rect class="cls-3" x="18.25" y="249.96" width="33.02" height="31"/>
+        <rect class="cls-4" x="66.75" y="249.46" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="259.46" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="269.46" width="129" height="3" rx=".5" ry=".5"/>
+        <rect class="cls-4" x="66.75" y="278.46" width="129" height="3" rx=".5" ry=".5"/>
+      </g>
+    </g>
+  </g>
+</svg>

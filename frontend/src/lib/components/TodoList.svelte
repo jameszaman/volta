@@ -114,18 +114,24 @@ For inquiries, please contact james.hedayet@gmail.com.
     on:dragend={dragEnd}
     >
     <form on:submit|preventDefault={addToDo} action="#" class="flex w-full px-4">
-        <Input bind:value={inputValue} placeholder="New Todo" className="rounded rounded-r-none outline-none w-full"/>
+        <Input bind:value={inputValue} placeholder="New Task" className="rounded rounded-r-none outline-none w-full"/>
         <Button className=" text-sm py-0 rounded-l-none"> Submit </Button>
     </form>
 
-    <ul class="w-full px-4 py-2">
-        {#each todoList as listItem, index}
-            <TodoItem
-                listItem={listItem}
-                editTodo={editTodo}
-                deleteTodo={deleteTodo}
-                dragStart={(e) => dragstart_handler(e, index)}
-            />
-        {/each}
-    </ul>
+    {#if todoList.length}
+        <ul class="w-full px-4 py-2">
+            {#each todoList as listItem, index}
+                <TodoItem
+                    listItem={listItem}
+                    editTodo={editTodo}
+                    deleteTodo={deleteTodo}
+                    dragStart={(e) => dragstart_handler(e, index)}
+                />
+            {/each}
+        </ul>
+    {:else}
+        <div class="flex justify-center items-center flex-col">
+            <p class="text-gray-200 text-center py-8 text-xl"> No remaining Task!🎉 </p>
+        </div>
+    {/if}
 </div>
