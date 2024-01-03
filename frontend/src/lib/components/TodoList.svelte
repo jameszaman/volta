@@ -10,6 +10,10 @@ For inquiries, please contact james.hedayet@gmail.com.
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
     import TodoItem from "./TodoItem.svelte";
+    import Icon from '@iconify/svelte'
+
+    // Assets
+    import EmptyTaskList from "/assets/EmptyTaskList.svg";
 
     // props
     export let todoList = [];
@@ -22,6 +26,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     // Stores
     import { currentProject } from "../../stores/projectStore.js";
     import { currentlyDraggingTodoIndex } from "../../stores/todoStore";
+  
 
     let current_project = ""
     currentProject.subscribe((value) => current_project = value);
@@ -130,7 +135,8 @@ For inquiries, please contact james.hedayet@gmail.com.
             {/each}
         </ul>
     {:else}
-        <div class="flex justify-center items-center flex-col">
+        <div class="flex flex-col h-full justify-center items-center">
+            <img src={EmptyTaskList} alt="Empty Task List" class="w-1/2"/>
             <p class="text-gray-200 text-center py-8 text-xl"> No remaining Task!🎉 </p>
         </div>
     {/if}
