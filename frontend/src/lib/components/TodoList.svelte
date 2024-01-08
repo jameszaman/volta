@@ -10,7 +10,6 @@ For inquiries, please contact james.hedayet@gmail.com.
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
     import TodoItem from "./TodoItem.svelte";
-    import Icon from '@iconify/svelte'
 
     // Assets
     import EmptyTaskList from "/assets/EmptyTaskList.svg";

@@ -10,7 +10,8 @@ For inquiries, please contact james.hedayet@gmail.com.
     * You must also follow the the proper function format.
  -->
 <script>
-  import Icon from "./Icon.svelte";
+    import Icon from "./Icon.svelte";
+    import { toggleTaskItemDraggable } from "../../stores/todoStore.js";
 
     // Props
     // Functions
@@ -25,14 +26,16 @@ For inquiries, please contact james.hedayet@gmail.com.
     let isEditModalOpen = false
     let inputValue = value;
 
-    $: {
-        // Whenever the value changes anywhere, update the inputValue global variable
-        // Without this, inputValue does not update when changed inside inputValue
-        inputValue = inputValue
-    }
+    // Whenever the value changes anywhere, update the inputValue global variable
+    // If the next line seems confusing, then read up on Svelte's reactive declarations.
+    $: inputValue = inputValue
+    $: inputValue = value
 
     function toggleEditModal() {
+        // Open or close the edit modal.
         isEditModalOpen = !isEditModalOpen
+        // When we are editing, the user should not be able to drag any item.
+        toggleTaskItemDraggable()
     }
 
     function editTodo(event) {
