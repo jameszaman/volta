@@ -145,14 +145,8 @@ class TodoDB:
         project = collection.find_one({"_id": ObjectId(payload.project_id)})
         if project:
             try:
-                # We found the project, Now let's swap the positions.
-                (
-                    project["todos"][payload.new_position],
-                    project["todos"][payload.previous_position],
-                ) = (
-                    project["todos"][payload.previous_position],
-                    project["todos"][payload.new_position],
-                )
+                value_to_change = project["todos"].pop(payload.previous_position)
+                project["todos"].insert(payload.new_position, value_to_change)
                 # Update the project database.
                 collection.update_one(
                     {"_id": ObjectId(payload.project_id)},
