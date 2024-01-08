@@ -63,7 +63,10 @@ For inquiries, please contact james.hedayet@gmail.com.
             });
             // This is switching in the frontend. This should be happening inside the then block, but does not work there.
             // I do not understand why.
-            [todo_list[droppedElementIndex], todo_list[itemDraggingIndex]] = [todo_list[itemDraggingIndex], todo_list[droppedElementIndex]]
+            const itemToChange = todo_list[itemDraggingIndex];
+            todo_list.splice(itemDraggingIndex, 1);
+            todo_list.splice(droppedElementIndex, 0, itemToChange);
+            todo_list = todo_list;
         }
     }
 
