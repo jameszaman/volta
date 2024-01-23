@@ -32,6 +32,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     <ListItemWithEditDelete
         value={listItem.todo}
         id={listItem["_id"]}
+        isLineThrough={listItem.status === "completed"}
         editFunction={editTodo}
         deleteFunction={deleteTodo}
         className="w-full"

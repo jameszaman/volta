@@ -18,6 +18,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     export let deleteFunction = (id) => {}
     export let editFunction = (id, todo_update) => {}
     export let click = () => {}
+    export let isLineThrough = false
     // props
     export let value = ""
     export let id = ""
@@ -63,7 +64,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     on:click={click}
     on:keypress={click}
 >
-    <span class="break-all group-hover:pr-10" class:hidden={isEditModalOpen}>{value}</span>
+    <span class="break-all group-hover:pr-10" class:hidden={isEditModalOpen} class:line-through={isLineThrough} >{value}</span>
     <div class:hidden={!isEditModalOpen}>
         <input type="text" bind:value={inputValue} class="w-full outline-none rounded bg-zinc-700 px-2" on:keyup={editTodo}>
         <Icon
