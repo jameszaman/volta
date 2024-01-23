@@ -10,13 +10,20 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // Stores
     import { currentProject } from "../../stores/projectStore.js";
-    import { currentlyDraggingTodoIndex } from "../../stores/todoStore";
+    import { currentlyDraggingTodoIndex, currentDragPosition } from "../../stores/todoStore";
 
     // Subscribing to stores.
-    let current_project = "6560e00b3992e65d78333560";
+    let current_project = "6560e00b3992e65d78333560"; // ! This should be dynamic...
     currentProject.subscribe((value) => current_project = value);
+    // This is the index of the task we are dragging.
     let itemDraggingIndex;
-    currentlyDraggingTodoIndex.subscribe((value) => itemDraggingIndex = value);
+    // When we are dragging the task, we want to keep track of where we have the task currently.
+    // This is to show that beautiful animation of the task moving.
+    let dragOverIndex;
+    currentlyDraggingTodoIndex.subscribe((value) => {
+        itemDraggingIndex = value
+        dragOverIndex = value;
+    });
 
     // Declaring necessary variables.
     let todo_list = []
@@ -32,11 +39,15 @@ For inquiries, please contact james.hedayet@gmail.com.
         }
     }
 
-    // This function is for handling when a todo is placed in a new position.
+    // This function is for handling when a task is placed in a new position.
     function handleDrop(event) {
         event.preventDefault();
-        const droppedElementIndex = getElementToSwitch(event.currentTarget, event.clientY);
-
+        let droppedElementIndex = getElementToSwitch(event.currentTarget, event.clientY);
+        // Handling the case when the task is dropped at the end of the list.
+        if(droppedElementIndex === undefined) {
+            droppedElementIndex = todo_list.length - 1;
+        }
+        // When the task is dropped we make a request at the backend to update the position of the task.
         if (itemDraggingIndex !== null) {
             fetch(`${import.meta.env.VITE_API_URL}/todo/update_todo_position`, {
                 method: "PATCH",
@@ -49,24 +60,9 @@ For inquiries, please contact james.hedayet@gmail.com.
                     new_position: droppedElementIndex,
                 }),
             })
-            .then((res) => {
-                if(!res.ok) {
-                    throw new Error("Something went wrong");
-                }
-                return res.json()
-            })
-            .then((data) => {
-                
-            })
             .catch((err) => {
                 console.error(err);
             });
-            // This is switching in the frontend. This should be happening inside the then block, but does not work there.
-            // I do not understand why.
-            const itemToChange = todo_list[itemDraggingIndex];
-            todo_list.splice(itemDraggingIndex, 1);
-            todo_list.splice(droppedElementIndex, 0, itemToChange);
-            todo_list = todo_list;
         }
     }
 
@@ -74,6 +70,7 @@ For inquiries, please contact james.hedayet@gmail.com.
     function handleDragEnd(event) {
         // We are currently not dragging any item.
         currentlyDraggingTodoIndex.set(null);
+        currentDragPosition.set(null);
     }
 
     function getElementToSwitch(container, y) {
@@ -94,6 +91,26 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     function handleDragOver(event) {
         event.preventDefault();
+        let droppedOverIndex = getElementToSwitch(event.currentTarget, event.clientY);
+        // Handling the case when the task is dropped outside the list.
+        if(!droppedOverIndex) {
+            if(dragOverIndex === 1) {
+                droppedOverIndex = 0;
+            }
+            else return
+        }
+        // If dropped inside the list then we switch the tasks.
+        if (dragOverIndex !== null && droppedOverIndex !== dragOverIndex) {
+            // Switching the tasks.
+            const itemToChange = todo_list[dragOverIndex];
+            todo_list.splice(dragOverIndex, 1);
+            todo_list.splice(droppedOverIndex, 0, itemToChange);
+            todo_list = todo_list;
+
+            // We are keeping track of the last position of the task while dragging.
+            dragOverIndex = droppedOverIndex;
+            currentDragPosition.set(dragOverIndex);
+        }
         return;
     }
 

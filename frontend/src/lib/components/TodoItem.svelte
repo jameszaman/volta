@@ -11,6 +11,8 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // Props
     export let listItem = {};
+    export let className = "";
+    export let isBeingDragged = false;
     export let editTodo = () => {};
     export let deleteTodo = () => {};
     export let dragStart = () => {};
@@ -27,6 +29,8 @@ For inquiries, please contact james.hedayet@gmail.com.
     class:cursor-grab={draggable}
     draggable={draggable}
     on:dragstart={dragStart}
+    class:opacity-60={isBeingDragged}
+    class:bg-zinc-800={isBeingDragged}
     >
     <TodoStatus status={listItem.status} todo_id={listItem["_id"]} />
     <ListItemWithEditDelete
@@ -35,6 +39,6 @@ For inquiries, please contact james.hedayet@gmail.com.
         isLineThrough={listItem.status === "completed"}
         editFunction={editTodo}
         deleteFunction={deleteTodo}
-        className="w-full"
+        className={className + " w-full"}
     />
 </div>

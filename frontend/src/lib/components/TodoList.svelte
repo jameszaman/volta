@@ -24,11 +24,18 @@ For inquiries, please contact james.hedayet@gmail.com.
 
     // Stores
     import { currentProject } from "../../stores/projectStore.js";
-    import { currentlyDraggingTodoIndex } from "../../stores/todoStore";
+    import { currentlyDraggingTodoIndex, currentDragPosition } from "../../stores/todoStore";
   
 
     let current_project = ""
     currentProject.subscribe((value) => current_project = value);
+
+    let itemDraggingIndex;
+    currentDragPosition.subscribe((value) => {
+        itemDraggingIndex = value
+    });
+    
+
 
     // This is for tracking the input of todo.
     let inputValue = "";
@@ -127,6 +134,7 @@ For inquiries, please contact james.hedayet@gmail.com.
             {#each todoList as listItem, index}
                 <TodoItem
                     listItem={listItem}
+                    isBeingDragged={index == itemDraggingIndex}
                     editTodo={editTodo}
                     deleteTodo={deleteTodo}
                     dragStart={(e) => dragstart_handler(e, index)}
